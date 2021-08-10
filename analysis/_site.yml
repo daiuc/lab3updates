@@ -1,7 +1,7 @@
-name: "lab3updates"
+name: lab3updates
 output_dir: ../docs
 navbar:
-  title: "lab3updates"
+  title: lab3updates
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/daiuc/lab3updates
 output:
   workflowr::wflow_html:
     toc: yes
