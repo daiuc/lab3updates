@@ -4,7 +4,7 @@ author: "daiuc"
 date: "2021-08-17"
 output: workflowr::wflow_html
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ## Introduction
@@ -16,7 +16,7 @@ library(tidyverse)
 knitr::opts_chunk$set(echo = T)
 ```
 
-```{r echo=TRUE}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 res1 = dir("../eQTLs/output/byGene/group10000", ".+results$", full.names = T)
 ops1 = dir("../eQTLs/output/byGene/group10000", ".+overlap$", full.names = T)
 
@@ -29,8 +29,9 @@ res1 = map(res1, ~ read_table(.x) %>% select(Category, M_annot, M_tot, Coefficie
 
 res = imap(res1, ~ add_column(.x, "gene" = .y)) %>% do.call(rbind, .) 
 res = mutate(res, h2 = M_annot * Coefficient)
+rownames(res) = NULL 
 
-res
+res %>% knitr::kable() %>% kableExtra::kable_styling()
 
 
 ```
