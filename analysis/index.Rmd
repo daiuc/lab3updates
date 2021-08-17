@@ -9,3 +9,5 @@ editor_options:
 ---
 
 Welcome to my research website. :)
+
+- Weekly updates [click](ldsc_run.html)
