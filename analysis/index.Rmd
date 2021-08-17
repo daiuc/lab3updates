@@ -10,4 +10,6 @@ editor_options:
 
 Welcome to my research website. :)
 
-- Weekly updates [click](ldsc_run.html)
+## Weekly updates
+
+- 8/18/21: run `ldsc` results: [click](ldsc_run.html)
