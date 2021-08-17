@@ -4,7 +4,7 @@ author: "daiuc"
 date: "2021-08-17"
 output: workflowr::wflow_html
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 ## Introduction
@@ -17,8 +17,9 @@ knitr::opts_chunk$set(echo = T)
 ```
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-res1 = dir("../eQTLs/output/byGene/group10000", ".+results$", full.names = T)
-ops1 = dir("../eQTLs/output/byGene/group10000", ".+overlap$", full.names = T)
+res1 = dir("../eQTLs/output/byGene/group1", ".+results$", full.names = T)
+
+ops1 = dir("../eQTLs/output/byGene/group1", ".+overlap$", full.names = T)
 
 names(res1) = map_chr(res1, ~ str_split(.x, "/", simplify = T) %>% .[1,6]) %>% 
                 map_chr(., ~str_remove(.x, "_baseline.results"))
@@ -33,6 +34,7 @@ rownames(res) = NULL
 
 res %>% knitr::kable() %>% kableExtra::kable_styling()
 
+res$gene %>% unique
 
 ```
 
