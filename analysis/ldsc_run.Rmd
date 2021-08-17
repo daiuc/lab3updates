@@ -1,0 +1,37 @@
+---
+title: "ldsc_run"
+author: "daiuc"
+date: "2021-08-17"
+output: workflowr::wflow_html
+editor_options: 
+  chunk_output_type: console
+---
+
+## Introduction
+
+Modified `ldsc` codes to output $\tau_c$ of each category as well as overlapping SNPs. 
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = T)
+```
+
+```{r echo=TRUE}
+res1 = dir("../eQTLs/output/byGene/group10000", ".+results$", full.names = T)
+ops1 = dir("../eQTLs/output/byGene/group10000", ".+overlap$", full.names = T)
+
+names(res1) = map_chr(res1, ~ str_split(.x, "/", simplify = T) %>% .[1,6]) %>% 
+                map_chr(., ~str_remove(.x, "_baseline.results"))
+names(ops1) = map_chr(res1, ~ str_split(.x, "/", simplify = T) %>% .[1,6]) %>% 
+                map_chr(., ~str_remove(.x, "_baseline.results"))
+
+res1 = map(res1, ~ read_table(.x) %>% select(Category, M_annot, M_tot, Coefficient))
+
+res = imap(res1, ~ add_column(.x, "gene" = .y)) %>% do.call(rbind, .) 
+res = mutate(res, h2 = M_annot * Coefficient)
+
+res
+
+
+```
+
