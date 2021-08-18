@@ -8,7 +8,7 @@ editor_options:
 ---
 
 
-```{python eval=FALSE, include=FALSE}
+```{python eval=FALSE, include=T}
 def annot_parser(fh, compression, frqfile_full=None, compression_frq=None, sumstats=sumstats):
     '''Parse annot files'''
     df_annot = read_csv(fh, header=0, compression=compression)
