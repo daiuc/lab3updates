@@ -7,34 +7,115 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
-
-Modified `ldsc` codes to output $\tau_c$ of each category as well as overlapping SNPs. 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-library(tidyverse)
-knitr::opts_chunk$set(echo = T)
+knitr::opts_chunk$set(echo = T, warning = F, message = F)
 ```
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
-res1 = dir("../eQTLs/output/byGene/group1", ".+results$", full.names = T)
 
-ops1 = dir("../eQTLs/output/byGene/group1", ".+overlap$", full.names = T)
+## Objective 1: estimate each gene's total cis heritability
 
-names(res1) = map_chr(res1, ~ str_split(.x, "/", simplify = T) %>% .[1,6]) %>% 
-                map_chr(., ~str_remove(.x, "_baseline.results"))
-names(ops1) = map_chr(res1, ~ str_split(.x, "/", simplify = T) %>% .[1,6]) %>% 
-                map_chr(., ~str_remove(.x, "_baseline.results"))
+A given gene's total heritability can be estimated by first estimate average per SNP heritability for each annotation category $\bar{\tau_c}$. Then A given gene's total heritability can be computed by multiplying number of all qualifying SNPs in cis
+Modified `ldsc` codes to output $\tau_c$ of each category as well as overlapping SNPs. 
 
-res1 = map(res1, ~ read_table(.x) %>% select(Category, M_annot, M_tot, Coefficient))
+$$h^2_g(total) = \sum_C{M_c \bar{\tau_c}}$$
 
-res = imap(res1, ~ add_column(.x, "gene" = .y)) %>% do.call(rbind, .) 
-res = mutate(res, h2 = M_annot * Coefficient)
-rownames(res) = NULL 
+To compute $M_c$ and $\bar{\tau_c}$, I made these modifications in the original scripts of [LD SCore v1.0.1](https://github.com/bulik/ldsc):
 
-res %>% knitr::kable() %>% kableExtra::kable_styling()
+- Output number of SNPs for each category, essentially an inner join between cis-eQTL summary stats SNPs and LD score SNPs from each of the 53 category (including base, ie. just SNPs). 
+- This involves modifying the functions of:
+    - `annot_parser`, `annot` functions in the `parse.py` script
+    - `_read_annot` function in the `sumstats.py` script
+    - `_overlap_output` method in the `regression.py` script
+- With the modification, `ldsc` will now output correct intersected `M_annot` or number of cis-eQTL SNPs for each category
+- Code for computing coefficient is not modified, since it already only take in intersection between ld score SNPs and cis-eQTL SNPs
 
-res$gene %>% unique
+Result:
+- `h^2` for 18373 genes are estimated
 
+
+---
+
+
+## Objective 2: estimate impact of functional and regulatory traits on cis heritability
+
+Effectively, we now compare cis gene heritability estimated from above with other metrics that measure regulatory or functional characteristics of genomic regions / genes.
+
+The following dataset from Wang et al. AJHG 2020 ([link](https://doi.org/10.1016/j.ajhg.2020.01.012)) are used. `15,913` genes are incorporated from this dataset (after removing NA values). The `h^2` dataset and teh `EDS` dataset are joined together on gene IDs. After having removed negative `h^2` genes, `9,340` genes remain. Zscores are computed for each gene. 
+
+<br>
+
+**RVIS**
+
+The score is designed to rank genes in terms of whether they have more or less common functional genetic variation relative to the genome wide expectation given the amount of apparently neutral variation the gene has. A gene with a positive score has more common functional variation, and a gene with a negative score has less and is referred to as "intolerant". By convention we rank all genes in order from most intolerant to least. As an example, a gene such as ATP1A3 has a RVIS score of -1.53 and a percentile of 3.37%, meaning it is amongst the 3.37% most intolerant of human genes.
+
+**pLI**
+
+The pLI score reflects the tolerance of a given gene to the loss of function on the basis of the number of protein truncating variants, that is, the frameshift, splice donor, splice acceptor, and stop-gain variants referenced for this gene in control databases weighted by the size of the gene and the sequencing coverage. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. We list here the main pitfalls to consider before using this score.
+
+**EDS**
+
+Combine features associated with enhancer-domain size to create an enhancer-domain score (EDS), which reﬂects the total size and redundancy of a gene’s non-coding regulatory architecture.
+
+
+
+```{r include=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(data.table)
+library(parallel)
+detectCores()
+```
+
+
+```{r include=FALSE}
+gene.lookup = fread("../eQTLs/data/geneID_geneSymbol_lookup.txt", sep = "\t", col.names = c("id","gene"))
+eds = readxl::read_xlsx("../eQTLs/data/wang_et_al_2020_AJHG_eds_pLI_RVIS.xlsx")
+hsq = fread("../eQTLs/output/hsq.txt", sep="\t")
+hsq = inner_join(hsq, gene.lookup, by = "gene")
+remove_gene = group_by(hsq, gene) %>% summarise(n=n()) %>% filter( n > 2) %>% pull(gene)
+hsq = filter(hsq, ! gene %in% remove_gene) %>% 
+        group_by(gene) %>% 
+        summarise(h2 = mean(h2)) %>%
+        inner_join(gene.lookup, by = "gene")
+hsq = inner_join(hsq[,c("id","gene","h2")], eds[, c("GeneSymbol", "EDS","pLI","RVIS")], by = c("id" = "GeneSymbol"))
+hsq = mutate_at(hsq, .vars = c("pLI", "RVIS"), .funs = "as.numeric")
+hsq = filter(hsq, h2 > 0)
+hsq = mutate(hsq, h2.z = scale(h2)[,1], EDS.z = scale(EDS)[,1], pLI.z = scale(pLI)[,1], RVIS.z = scale(RVIS)[,1])
+```
+
+```{r echo=FALSE}
+head(hsq) %>% knitr::kable() %>% kableExtra::kable_styling()
+```
+
+
+```{r include=FALSE}
+g1 = ggplot(hsq, aes(h2.z, EDS.z)) +
+    geom_point( alpha = .3) + 
+    geom_smooth(method = "lm")
+g2 = ggplot(hsq, aes(h2.z, pLI.z)) +
+    geom_point( alpha = .3) + 
+    geom_smooth(method = "lm")
+g3 = ggplot(hsq, aes(h2.z, RVIS.z)) +
+    geom_point( alpha = .3) + 
+    geom_smooth(method = "lm")
+```
+
+
+```{r, fig.height=8}
+gridExtra::grid.arrange(g1, g2, g3, nrow=2)
+```
+
+
+```{r include=FALSE}
+g4 = ggplot(hsq, aes(h2.z, EDS.z)) +
+  geom_boxplot(aes(group = cut_width(h2.z, 1)))
+g5 = ggplot(hsq, aes(h2.z, pLI.z)) +
+  geom_boxplot(aes(group = cut_width(h2.z, 1)))
+g6 = ggplot(hsq, aes(h2.z, RVIS.z)) +
+  geom_boxplot(aes(group = cut_width(h2.z, 1)))
+```
+
+```{r, fig.height=8}
+gridExtra::grid.arrange(g4,g5,g6, nrow=2)
 ```
 
