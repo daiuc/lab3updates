@@ -473,16 +473,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreec5ff00f80ae4c761ec0b56cecc238b1780c59dactargetblankc5ff00fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/c5ff00f80ae4c761ec0b56cecc238b1780c59dac" target="_blank">c5ff00f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree0dcc3170785369853959ef6a4433c0f28a0c902atargetblank0dcc317a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/0dcc3170785369853959ef6a4433c0f28a0c902a" target="_blank">0dcc317</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreec5ff00f80ae4c761ec0b56cecc238b1780c59dactargetblankc5ff00fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree0dcc3170785369853959ef6a4433c0f28a0c902atargetblank0dcc317a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/c5ff00f80ae4c761ec0b56cecc238b1780c59dac" target="_blank">c5ff00f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/0dcc3170785369853959ef6a4433c0f28a0c902a" target="_blank">0dcc317</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -530,6 +530,40 @@ Message
 <tbody>
 <tr>
 <td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/0dcc3170785369853959ef6a4433c0f28a0c902a/analysis/modified_code.Rmd" target="_blank">0dcc317</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-18
+</td>
+<td>
+wflow_publish(c(“analysis/modified_code.Rmd”, “analysis/ldsc_run.Rmd”))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/daiuc/lab3updates/386560e67d04e7fcc3ab0c62a5117a697018d838/docs/modified_code.html" target="_blank">386560e</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 html
 </td>
 <td>
@@ -569,6 +603,98 @@ wflow_publish(c(“analysis/modified_code.Rmd”, “analysis/ldsc_run.Rmd”))
 </div>
 </div>
 </div>
+<pre class="python"><code>def annot_parser(fh, compression, frqfile_full=None, compression_frq=None, sumstats=sumstats):
+    &#39;&#39;&#39;Parse annot files&#39;&#39;&#39;
+    df_annot = read_csv(fh, header=0, compression=compression)
+    df_annot = pd.merge(df_annot, sumstats[[&#39;SNP&#39;]], how = &quot;inner&quot;)
+    df_annot = df_annot.drop([&#39;SNP&#39;,&#39;CHR&#39;, &#39;BP&#39;, &#39;CM&#39;], axis=1, errors=&#39;ignore&#39;).astype(float)
+    if frqfile_full is not None:
+        df_frq = frq_parser(frqfile_full, compression_frq)
+        df_annot = df_annot[(.95 &gt; df_frq.FRQ) &amp; (df_frq.FRQ &gt; 0.05)]
+    return df_annot
+
+def annot(fh_list, num=None, frqfile=None, sumstats=sumstats):
+    &#39;&#39;&#39;
+    Parses .annot files and returns an overlap matrix. See docs/file_formats_ld.txt.
+    If num is not None, parses .annot files split across [num] chromosomes (e.g., the
+    output of parallelizing ldsc.py --l2 across chromosomes).
+    &#39;&#39;&#39;
+    annot_suffix = [&#39;.annot&#39; for fh in fh_list]
+    annot_compression = []
+    if num is not None:  # 22 files, one for each chromosome
+        chrs = get_present_chrs(fh, num+1)
+        for i, fh in enumerate(fh_list):
+            first_fh = sub_chr(fh, chrs[0]) + annot_suffix[i]
+            annot_s, annot_comp_single = which_compression(first_fh)
+            annot_suffix[i] += annot_s
+            annot_compression.append(annot_comp_single)
+
+        if frqfile is not None:
+            frq_suffix = &#39;.frq&#39;
+            first_frqfile = sub_chr(frqfile, 1) + frq_suffix
+            frq_s, frq_compression = which_compression(first_frqfile)
+            frq_suffix += frq_s
+
+        y = []
+        M_tot = 0
+        for chrom in chrs:
+            if frqfile is not None:
+                df_annot_chr_list = [annot_parser(sub_chr(fh, chrom) + annot_suffix[i], annot_compression[i], 
+                                                  sub_chr(frqfile, chrom) + frq_suffix, frq_compression, sumstats)
+                                     for i, fh in enumerate(fh_list)]
+            else:
+                df_annot_chr_list = [annot_parser(sub_chr(fh, chrom) + annot_suffix[i], annot_compression[i], sumstats)
+                                     for i, fh in enumerate(fh_list)]
+
+            annot_matrix_chr_list = [np.matrix(df_annot_chr) for df_annot_chr in df_annot_chr_list]
+            annot_matrix_chr = np.hstack(annot_matrix_chr_list)
+            y.append(np.dot(annot_matrix_chr.T, annot_matrix_chr))
+            M_tot += len(df_annot_chr_list[0])
+
+        x = sum(y)
+    else:  # just one file
+        for i, fh in enumerate(fh_list):
+            annot_s, annot_comp_single = which_compression(fh + annot_suffix[i])
+            annot_suffix[i] += annot_s
+            annot_compression.append(annot_comp_single)
+
+        if frqfile is not None:
+            frq_suffix = &#39;.frq&#39;
+            frq_s, frq_compression = which_compression(frqfile + frq_suffix)
+            frq_suffix += frq_s
+
+            df_annot_list = [annot_parser(fh + annot_suffix[i], annot_compression[i],
+                                          frqfile + frq_suffix, frq_compression, sumstats) for i, fh in enumerate(fh_list)]
+
+        else:
+            df_annot_list = [annot_parser(fh + annot_suffix[i], annot_compression[i], sumstats)
+                             for i, fh in enumerate(fh_list)]
+
+        annot_matrix_list = [np.matrix(y) for y in df_annot_list]
+        annot_matrix = np.hstack(annot_matrix_list)
+        x = np.dot(annot_matrix.T, annot_matrix)
+        M_tot = len(df_annot_list[0])
+
+    return x, M_tot
+
+def _read_annot(args, log, sumstats):
+    &#39;&#39;&#39;Read annot matrix.&#39;&#39;&#39;
+    try:
+        if args.ref_ld is not None:
+            overlap_matrix, M_tot = _read_chr_split_files(args.ref_ld_chr, args.ref_ld, log,
+                                                          &#39;annot matrix&#39;, ps.annot, frqfile=args.frqfile, sumstats=sumstats)
+        elif args.ref_ld_chr is not None:
+            overlap_matrix, M_tot = _read_chr_split_files(args.ref_ld_chr, args.ref_ld, log,
+                                                      &#39;annot matrix&#39;, ps.annot, frqfile=args.frqfile_chr, sumstats=sumstats)
+    except Exception:
+        log.log(&#39;Error parsing .annot file.&#39;)
+        raise
+
+    return overlap_matrix, M_tot
+
+
+
+overlap_matrix, M_tot = _read_annot(args, log, sumstats)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
