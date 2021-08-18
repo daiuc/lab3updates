@@ -92,6 +92,11 @@ hsq = mutate(hsq, h2.z = scale(h2)[,1], EDS.z = scale(EDS)[,1], pLI.z = scale(pL
 head(hsq) %>% knitr::kable() %>% kableExtra::kable_styling()
 ```
 
+$h^2$ distribution for the `9,340` genes
+```{r}
+ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "royalblue", alpha = .4, color = "royalblue")
+```
+
 
 ```{r include=FALSE}
 g1 = ggplot(hsq, aes(h2.z, EDS.z)) +
