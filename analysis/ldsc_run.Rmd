@@ -36,7 +36,7 @@ Result:
 - `h^2` for 18373 genes are estimated
 
 
-[Modified code]("doc/modified_code.html)
+[Modified code](modified_code.html)
 
 
 ---
