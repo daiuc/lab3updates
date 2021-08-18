@@ -18,6 +18,8 @@ knitr::opts_chunk$set(echo = T, warning = F, message = F)
 A given gene's total heritability can be estimated by first estimate average per SNP heritability for each annotation category $\bar{\tau_c}$. Then A given gene's total heritability can be computed by multiplying number of all qualifying SNPs in cis
 Modified `ldsc` codes to output $\tau_c$ of each category as well as overlapping SNPs. 
 
+
+
 $$h^2_g(total) = \sum_C{M_c \bar{\tau_c}}$$
 
 To compute $M_c$ and $\bar{\tau_c}$, I made these modifications in the original scripts of [LD SCore v1.0.1](https://github.com/bulik/ldsc):
@@ -32,6 +34,9 @@ To compute $M_c$ and $\bar{\tau_c}$, I made these modifications in the original 
 
 Result:
 - `h^2` for 18373 genes are estimated
+
+
+[Modified code]("doc/modified_code.html)
 
 
 ---
