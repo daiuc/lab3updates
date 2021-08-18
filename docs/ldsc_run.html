@@ -475,16 +475,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree6c43157bc5dc4ce43b5982fb738b09ca780bfe70targetblank6c43157a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/6c43157bc5dc4ce43b5982fb738b09ca780bfe70" target="_blank">6c43157</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreeb4016e65401e1ee408a79ff263a2de87aabd6452targetblankb4016e6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/b4016e65401e1ee408a79ff263a2de87aabd6452" target="_blank">b4016e6</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree6c43157bc5dc4ce43b5982fb738b09ca780bfe70targetblank6c43157a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreeb4016e65401e1ee408a79ff263a2de87aabd6452targetblankb4016e6a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/6c43157bc5dc4ce43b5982fb738b09ca780bfe70" target="_blank">6c43157</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/b4016e65401e1ee408a79ff263a2de87aabd6452" target="_blank">b4016e6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -530,6 +530,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/b4016e65401e1ee408a79ff263a2de87aabd6452/analysis/ldsc_run.Rmd" target="_blank">b4016e6</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-18
+</td>
+<td>
+wflow_publish(“analysis/ldsc_run.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/daiuc/lab3updates/36fb6e0e3e9e3ff1e892eebcdc3d31f9cf3a79d6/docs/ldsc_run.html" target="_blank">36fb6e0</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1053,84 +1087,13 @@ A4GALT
 </tr>
 </tbody>
 </table>
+<p><span class="math inline">\(h^2\)</span> distribution for the <code>9,340</code> genes</p>
+<pre class="r"><code>ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = &quot;royalblue&quot;, alpha = .4, color = &quot;royalblue&quot;)</code></pre>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>gridExtra::grid.arrange(g1, g2, g3, nrow=2)</code></pre>
-<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/470d29cc8784ed949bfdb9236b92044c59286b59/docs/figure/ldsc_run.Rmd/unnamed-chunk-6-1.png" target="_blank">470d29c</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>gridExtra::grid.arrange(g4,g5,g6, nrow=2)</code></pre>
-<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/470d29cc8784ed949bfdb9236b92044c59286b59/docs/figure/ldsc_run.Rmd/unnamed-chunk-8-1.png" target="_blank">470d29c</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1169,11 +1132,11 @@ loaded via a namespace (and not attached):
  [5] splines_3.6.1     modelr_0.1.8      bslib_0.2.5.1     assertthat_0.2.1 
  [9] highr_0.9         cellranger_1.1.0  yaml_2.2.1        pillar_1.6.1     
 [13] backports_1.2.1   lattice_0.20-41   glue_1.4.2        digest_0.6.27    
-[17] promises_1.1.0    rvest_1.0.1       colorspace_2.0-2  htmltools_0.5.1.1
-[21] httpuv_1.6.1      Matrix_1.2-18     pkgconfig_2.0.3   broom_0.7.9      
+[17] promises_1.1.0    rvest_1.0.1       colorspace_2.0-2  Matrix_1.2-18    
+[21] htmltools_0.5.1.1 httpuv_1.6.1      pkgconfig_2.0.3   broom_0.7.9      
 [25] haven_2.4.1       scales_1.1.1      webshot_0.5.2     svglite_2.0.0    
 [29] whisker_0.4       later_1.0.0       tzdb_0.1.2        git2r_0.26.1     
-[33] mgcv_1.8-31       farver_2.1.0      generics_0.1.0    ellipsis_0.3.2   
+[33] mgcv_1.8-31       generics_0.1.0    farver_2.1.0      ellipsis_0.3.2   
 [37] withr_2.4.2       cli_3.0.1         magrittr_2.0.1    crayon_1.4.1     
 [41] readxl_1.3.1      evaluate_0.14     fs_1.4.1          fansi_0.5.0      
 [45] nlme_3.1-147      xml2_1.3.1        tools_3.6.1       hms_1.1.0        
