@@ -93,7 +93,7 @@ head(hsq) %>% knitr::kable() %>% kableExtra::kable_styling()
 ```
 
 $h^2$ distribution for the `9,340` genes
-```{r}
+```{r echo=FALSE}
 ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "royalblue", alpha = .4, color = "royalblue")
 ```
 
