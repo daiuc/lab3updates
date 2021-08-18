@@ -98,6 +98,10 @@ ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "royalblue", alp
 ```
 
 
+
+$h^2$ against normalized $EDS$, $pLI$, and $RVIS$
+
+
 ```{r include=FALSE}
 g1 = ggplot(hsq, aes(h2.z, EDS.z)) +
     geom_point( alpha = .3) + 
@@ -110,7 +114,7 @@ g3 = ggplot(hsq, aes(h2.z, RVIS.z)) +
     geom_smooth(method = "lm")
 ```
 
-$h^2$ against normalized $EDS$, $pLI$, and $RVIS$
+
 
 ```{r, fig.height=8}
 gridExtra::grid.arrange(g1, g2, g3, nrow=2)
