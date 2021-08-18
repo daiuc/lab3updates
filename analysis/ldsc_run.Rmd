@@ -33,7 +33,7 @@ To compute $M_c$ and $\bar{\tau_c}$, I made these modifications in the original 
 - Code for computing coefficient is not modified, since it already only take in intersection between ld score SNPs and cis-eQTL SNPs
 
 Result:
-- `h^2` for 18373 genes are estimated
+- $h^2$ for 18373 genes are estimated
 
 
 [Modified code](modified_code.html)
