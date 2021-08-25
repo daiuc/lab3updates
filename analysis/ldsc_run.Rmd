@@ -46,7 +46,7 @@ Result:
 
 Effectively, we now compare cis gene heritability estimated from above with other metrics that measure regulatory or functional characteristics of genomic regions / genes.
 
-The following dataset from Wang et al. AJHG 2020 ([link](https://doi.org/10.1016/j.ajhg.2020.01.012)) are used. `15,913` genes are incorporated from this dataset (after removing NA values). The `h^2` dataset and teh `EDS` dataset are joined together on gene IDs. After having removed negative `h^2` genes, `9,340` genes remain. Zscores are computed for each gene. 
+The following dataset from Wang et al. AJHG 2020 ([link](https://doi.org/10.1016/j.ajhg.2020.01.012)) are used. `15,913` genes are incorporated from this dataset (after removing NA values). The `h^2` dataset and teh `EDS` dataset are joined together on gene IDs. After having removed negative `h^2` genes, `8,936` genes remain. Zscores are computed for each gene. 
 
 <br>
 
@@ -62,6 +62,9 @@ The pLI score reflects the tolerance of a given gene to the loss of function on 
 
 Combine features associated with enhancer-domain size to create an enhancer-domain score (EDS), which reﬂects the total size and redundancy of a gene’s non-coding regulatory architecture.
 
+
+
+<br> 
 
 
 ```{r include=FALSE, warning=FALSE, message=FALSE}
@@ -105,15 +108,22 @@ hsq = mutate(hsq, h2.z = scale(h2)[,1], EDS.z = scale(EDS)[,1], pLI.z = scale(pL
 ```
 
 
+### Example of combined dataset
+
+```{r echo=FALSE}
+head(hsq) %>% select(-h2.z, -EDS.z, -pLI.z, -RVIS.z) %>% knitr::kable() %>% kableExtra::kable_styling()
+```
+
+<br>
 
 
 ### QC plots
 
 After rounds of filtering about 9000 protein coding genes are left for downstream analysis
 
-```{r echo=FALSE}
-head(hsq) %>% knitr::kable() %>% kableExtra::kable_styling()
-```
+
+
+<br>
 
 #### Summary stats of qualifying SNPs per gene
 
@@ -121,6 +131,7 @@ head(hsq) %>% knitr::kable() %>% kableExtra::kable_styling()
 summary(hsq$m_tot)
 ```
 
+<br>
 
 #### $M_tot$ distribution
 
@@ -135,7 +146,11 @@ ggplot(hsq) + geom_density(aes(m_tot, ..density..), fill="royalblue", alpha=.5)
 ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "coral", alpha = .5)
 ```
 
+<br>
+
 ### Comparison cis gene heritability and other gene metrics
+
+<br>
 
 #### Distributions of other gene metrics
 ```{r}
@@ -154,7 +169,7 @@ gridExtra::grid.arrange(grobs = gg, nrow=3)
 ```
 
 
-
+<br>
 
 #### Demonstrating correlation between $h^2$ and other metrics
 
@@ -181,9 +196,13 @@ gg.sc6 = ggplot(hsq, aes(h2, N_QTLs)) +
 
 
 
+<br>
+
 ```{r, warning=FALSE, message=FALSE, fig.height=8, fig.width=10}
 gridExtra::grid.arrange(gg.sc1, gg.sc2, gg.sc3, gg.sc4, gg.sc5, gg.sc6, nrow=3)
 ```
+
+<br>
 
 
 #### Demonstrating correlation between $h^2$ and other metrics
