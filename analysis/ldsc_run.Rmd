@@ -133,7 +133,7 @@ summary(hsq$m_tot)
 
 <br>
 
-#### $M_tot$ distribution
+#### Distribution of qualifying SNPs for $h2$ estimate
 
 ```{r}
 ggplot(hsq) + geom_density(aes(m_tot, ..density..), fill="royalblue", alpha=.5)
@@ -238,7 +238,7 @@ gg.bx6 = ggplot(hsq, aes(h2, N_QTLs)) +
 ```
 
 ```{r, warning=FALSE, message=FALSE, fig.height=10, fig.width=10}
-gridExtra::grid.arrange(gg.bx1, gg.bx2, gg.bx3, gg.bx4, gg.bx5, gg.bx6, nrow=2)
+gridExtra::grid.arrange(gg.bx1, gg.bx2, gg.bx3, gg.bx4, gg.bx5, gg.bx6, nrow=3)
 ```
 
 
