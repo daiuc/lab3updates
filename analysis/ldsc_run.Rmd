@@ -131,6 +131,23 @@ ggplot(hsq) + geom_density(aes(m_tot, ..density..), fill="royalblue", alpha=.5) 
 ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "coral", alpha = .5) + labs(x = bquote(h^2))
 ```
 
+#### Test correlation between qualifying SNPs and heritability. 
+
+
+More qualifying SNPs do seem to contribute to higher heribability. However, longer genes do not seem to include more qualifying SNPs.
+```{r}
+cor.test(~ m_tot + h2, data = hsq)
+```
+
+
+```{r}
+g1 = ggplot(hsq) + geom_boxplot(aes(h2, m_tot, group = cut_width(h2, .01))) + 
+    labs(x = bquote(M[tot]), y = bquote(h^2))
+g2 = ggplot(hsq) + geom_boxplot(aes(log10(length), m_tot, group = cut_number(length, 10))) + labs(y = bquote(M[tot]), x = bquote(log[10](length)))
+gridExtra::grid.arrange(g1, g2, nrow=2)
+```
+
+
 <br>
 
 ### Is cis genetic heritability related to regulatory landscape, functional intolerance and constraints, or gene length?
@@ -217,12 +234,13 @@ I performed correlation test between $h^2$ and all the other metrics. `EDS`, `ge
 
 - `EDS` was previously noted to negatively correlate with cis-eQTLs. One explanation is that mammalian genes have evolved a robustness to cope with regulatory genetic variation (Wang et al.). Thus genes with high EDS would be better explained by genomewide variants, rather than cis variants. This perhaps explains why higher EDS genes might have lower cis $h^2$.
 
-- gene length: should we restrict to length of CDS only?
+- gene length: 
+    - possibly because longer genes do not necessarily contributes to more qualifying SNPs, as a result longer genes are penalized for heritability?
+    - should we restrict to length of CDS only?
 
 - N_QTLs: strange that it's negatively correlated. 
     - Perhaps due to many more SNPs/eQTLs in the GTEx dataset relative to SNPs used for $h^2$ (eQTLgen  x EUR hapmap3)
     - eQTLgen only has blood samples, but GTEx more diverse
-    
 
 
 ```{r}

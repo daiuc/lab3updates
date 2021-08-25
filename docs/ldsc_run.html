@@ -475,16 +475,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree6d54ca01aa92f44ea95a829766552ad19ec82e3ftargetblank6d54ca0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/6d54ca01aa92f44ea95a829766552ad19ec82e3f" target="_blank">6d54ca0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreeb9363766b087f6d331093379f35edd05c7adda16targetblankb936376a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/b9363766b087f6d331093379f35edd05c7adda16" target="_blank">b936376</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree6d54ca01aa92f44ea95a829766552ad19ec82e3ftargetblank6d54ca0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreeb9363766b087f6d331093379f35edd05c7adda16targetblankb936376a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/6d54ca01aa92f44ea95a829766552ad19ec82e3f" target="_blank">6d54ca0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/b9363766b087f6d331093379f35edd05c7adda16" target="_blank">b936376</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -533,6 +533,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/b9363766b087f6d331093379f35edd05c7adda16/analysis/ldsc_run.Rmd" target="_blank">b936376</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-25
+</td>
+<td>
+wflow_git_commit(all = T)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/daiuc/lab3updates/b9363766b087f6d331093379f35edd05c7adda16/docs/ldsc_run.html" target="_blank">b936376</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-25
+</td>
+<td>
+wflow_git_commit(all = T)
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1625,6 +1659,70 @@ daiuc
 </table>
 </div>
 </div>
+</div>
+<div id="test-correlation-between-qualifying-snps-and-heritability." class="section level4">
+<h4>Test correlation between qualifying SNPs and heritability.</h4>
+<p>More qualifying SNPs do seem to contribute to higher heribability. However, longer genes do not seem to include more qualifying SNPs.</p>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  m_tot and h2
+t = 30.84, df = 8934, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.2913233 0.3288034
+sample estimates:
+      cor 
+0.3101839 </code></pre>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/88193d649a43857c87c261c304bbe24bcb59aaac/docs/figure/ldsc_run.Rmd/unnamed-chunk-11-1.png" target="_blank">88193d6</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-11-1.png" target="_blank">f534edc</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><br></p>
 </div>
 </div>
@@ -1648,60 +1746,6 @@ daiuc
 <p>N_QTL refers to the number of significant cis-eQTLs per gene.</p>
 <div id="distributions-of-other-gene-metrics" class="section level4">
 <h4>Distributions of other gene metrics</h4>
-<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/5c7697fd4f138e4c8778d51ab4b4ff2475b1bfda/docs/figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" target="_blank">5c7697f</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" target="_blank">f534edc</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><br></p>
-</div>
-<div id="can-we-observe-correlation-between-h2-and-the-other-metrics" class="section level4">
-<h4>Can we observe correlation between <span class="math inline">\(h^2\)</span> and the other metrics?</h4>
-<p><br></p>
 <p><img src="figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
@@ -1764,12 +1808,70 @@ daiuc
 </div>
 <p><br></p>
 </div>
+<div id="can-we-observe-correlation-between-h2-and-the-other-metrics" class="section level4">
+<h4>Can we observe correlation between <span class="math inline">\(h^2\)</span> and the other metrics?</h4>
+<p><br></p>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/1392841f108c62c85f6f4e63e9afe31568a4bb8e/docs/figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" target="_blank">1392841</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" target="_blank">f534edc</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+</div>
 <div id="demonstrating-correlation-between-h2-and-other-metrics" class="section level4">
 <h4>Demonstrating correlation between <span class="math inline">\(h^2\)</span> and other metrics</h4>
 <p>I performed correlation test between <span class="math inline">\(h^2\)</span> and all the other metrics. <code>EDS</code>, <code>gene length</code>, and <code>N_eQTLs</code> showed the strongest correlation. All are inversely correlated with <span class="math inline">\(h^2\)</span>.</p>
 <ul>
 <li><p><code>EDS</code> was previously noted to negatively correlate with cis-eQTLs. One explanation is that mammalian genes have evolved a robustness to cope with regulatory genetic variation (Wang et al.). Thus genes with high EDS would be better explained by genomewide variants, rather than cis variants. This perhaps explains why higher EDS genes might have lower cis <span class="math inline">\(h^2\)</span>.</p></li>
-<li><p>gene length: should we restrict to length of CDS only?</p></li>
+<li>gene length:
+<ul>
+<li>possibly because longer genes do not necessarily contributes to more qualifying SNPs, as a result longer genes are penalized for heritability?</li>
+<li>should we restrict to length of CDS only?</li>
+</ul></li>
 <li>N_QTLs: strange that it’s negatively correlated.
 <ul>
 <li>Perhaps due to many more SNPs/eQTLs in the GTEx dataset relative to SNPs used for <span class="math inline">\(h^2\)</span> (eQTLgen x EUR hapmap3)</li>
@@ -1858,7 +1960,7 @@ N_QTLs
 </tr>
 </tbody>
 </table>
-<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
