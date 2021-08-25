@@ -475,16 +475,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree5c7697fd4f138e4c8778d51ab4b4ff2475b1bfdatargetblank5c7697fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/5c7697fd4f138e4c8778d51ab4b4ff2475b1bfda" target="_blank">5c7697f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree6d54ca01aa92f44ea95a829766552ad19ec82e3ftargetblank6d54ca0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/6d54ca01aa92f44ea95a829766552ad19ec82e3f" target="_blank">6d54ca0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree5c7697fd4f138e4c8778d51ab4b4ff2475b1bfdatargetblank5c7697fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree6d54ca01aa92f44ea95a829766552ad19ec82e3ftargetblank6d54ca0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/5c7697fd4f138e4c8778d51ab4b4ff2475b1bfda" target="_blank">5c7697f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/6d54ca01aa92f44ea95a829766552ad19ec82e3f" target="_blank">6d54ca0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -533,6 +533,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/6d54ca01aa92f44ea95a829766552ad19ec82e3f/analysis/ldsc_run.Rmd" target="_blank">6d54ca0</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-25
+</td>
+<td>
+wflow_git_commit(all = T)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/daiuc/lab3updates/6d54ca01aa92f44ea95a829766552ad19ec82e3f/docs/ldsc_run.html" target="_blank">6d54ca0</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-25
+</td>
+<td>
+wflow_git_commit(all = T)
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1606,6 +1640,12 @@ daiuc
 <p>RVIS score in this analysis is downloaded from the Wang et al. 2020 paper.</p>
 <p><strong>pLI</strong></p>
 <p>pLI (probability of being loss-of-function intolerant) reflects the tolerance of a gene to the loss of function mutations. <em>A higher value of pLI indicates a gene’s function is more likely to be abrogated under a loss-of-function mutation</em>. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. Note that pLI specifically measures the impact of loss of function variants, such as missense, frame shift, early stop codon, etc.</p>
+<p><strong>gene length</strong></p>
+<p>I filtered protein coding genes and computed gene length from Gencode hg38 V31 GTF file.</p>
+<p><strong>max.abs.slope</strong></p>
+<p>I downloaded cis-eQTL significant SNP-gene pair dataset from GTEx V8 analysis. Data from 49 single tissue specific datasets are merged. For this metric as well as the <code>N_QTL</code> metric, all significant SNPs are subject to <code>MAF</code> filtering consistent with heritability estimate (<code>0.05 &lt; MAF &lt; 0.95</code>). Maximum effect size is summarised for each gene using the regression slope (<code>slope</code>) column in the <code>*.eqtl_signifpairs.txt.gz</code> data files. The <code>slope</code> values are first taken as absolute value before max summarising by gene.</p>
+<p><strong>GTEx V8 N_QTL</strong></p>
+<p>N_QTL refers to the number of significant cis-eQTLs per gene.</p>
 <div id="distributions-of-other-gene-metrics" class="section level4">
 <h4>Distributions of other gene metrics</h4>
 <p><img src="figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -1659,8 +1699,8 @@ daiuc
 </div>
 <p><br></p>
 </div>
-<div id="demonstrating-correlation-between-h2-and-other-metrics" class="section level4">
-<h4>Demonstrating correlation between <span class="math inline">\(h^2\)</span> and other metrics</h4>
+<div id="can-we-observe-correlation-between-h2-and-the-other-metrics" class="section level4">
+<h4>Can we observe correlation between <span class="math inline">\(h^2\)</span> and the other metrics?</h4>
 <p><br></p>
 <p><img src="figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
@@ -1685,6 +1725,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/6d54ca01aa92f44ea95a829766552ad19ec82e3f/docs/figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" target="_blank">6d54ca0</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/daiuc/lab3updates/blob/5c7697fd4f138e4c8778d51ab4b4ff2475b1bfda/docs/figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" target="_blank">5c7697f</a>
@@ -1713,57 +1764,101 @@ daiuc
 </div>
 <p><br></p>
 </div>
-<div id="demonstrating-correlation-between-h2-and-other-metrics-1" class="section level4">
+<div id="demonstrating-correlation-between-h2-and-other-metrics" class="section level4">
 <h4>Demonstrating correlation between <span class="math inline">\(h^2\)</span> and other metrics</h4>
-<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
+<p>I performed correlation test between <span class="math inline">\(h^2\)</span> and all the other metrics. <code>EDS</code>, <code>gene length</code>, and <code>N_eQTLs</code> showed the strongest correlation. All are inversely correlated with <span class="math inline">\(h^2\)</span>.</p>
+<ul>
+<li><p><code>EDS</code> was previously noted to negatively correlate with cis-eQTLs. One explanation is that mammalian genes have evolved a robustness to cope with regulatory genetic variation (Wang et al.). Thus genes with high EDS would be better explained by genomewide variants, rather than cis variants. This perhaps explains why higher EDS genes might have lower cis <span class="math inline">\(h^2\)</span>.</p></li>
+<li><p>gene length: should we restrict to length of CDS only?</p></li>
+<li>N_QTLs: strange that it’s negatively correlated.
+<ul>
+<li>Perhaps due to many more SNPs/eQTLs in the GTEx dataset relative to SNPs used for <span class="math inline">\(h^2\)</span> (eQTLgen x EUR hapmap3)</li>
+<li>eQTLgen only has blood samples, but GTEx more diverse</li>
+</ul></li>
+</ul>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th>
-Version
+<th style="text-align:left;">
 </th>
-<th>
-Author
+<th style="text-align:right;">
+p
 </th>
-<th>
-Date
+<th style="text-align:right;">
+cor.spearman
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/1392841f108c62c85f6f4e63e9afe31568a4bb8e/docs/figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" target="_blank">1392841</a>
+<td style="text-align:left;">
+EDS
 </td>
-<td>
-daiuc
+<td style="text-align:right;">
+0.0000000
 </td>
-<td>
-2021-08-24
+<td style="text-align:right;">
+-0.1648784
 </td>
 </tr>
 <tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" target="_blank">f534edc</a>
+<td style="text-align:left;">
+pLI
 </td>
-<td>
-daiuc
+<td style="text-align:right;">
+0.0002439
 </td>
-<td>
-2021-08-24
+<td style="text-align:right;">
+-0.0397652
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RVIS
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0801643
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+length
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+-0.0990698
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+max.abs.slope
+</td>
+<td style="text-align:right;">
+0.1465348
+</td>
+<td style="text-align:right;">
+0.0153601
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N_QTLs
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+-0.1342328
 </td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

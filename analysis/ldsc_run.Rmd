@@ -158,12 +158,22 @@ RVIS score in this analysis is downloaded from the Wang et al. 2020 paper.
 pLI (probability of being loss-of-function intolerant) reflects the tolerance of a gene to the loss of function mutations. *A higher value of pLI indicates a gene's function is more likely to be abrogated under a loss-of-function mutation*. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. Note that pLI specifically measures the impact of loss of function variants, such as missense, frame shift, early stop codon, etc. 
 
 
+**gene length**
+
+I filtered protein coding genes and computed gene length from Gencode hg38 V31 GTF file. 
+
+**max.abs.slope**
+
+I downloaded cis-eQTL significant SNP-gene pair dataset from GTEx V8 analysis. Data from 49 single tissue specific datasets are merged. For this metric as well as the `N_QTL` metric, all significant SNPs are subject to `MAF` filtering consistent with heritability estimate (`0.05 < MAF < 0.95`). Maximum effect size is summarised for each gene using the regression slope (`slope`) column in the `*.eqtl_signifpairs.txt.gz` data files. The `slope` values are first taken as absolute value before max summarising by gene.
+
+**GTEx V8 N_QTL**
+
+N_QTL refers to the number of significant cis-eQTLs per gene. 
+
 #### Distributions of other gene metrics
+
 ```{r}
 metrics = c("EDS", "pLI", "RVIS", "length", "max.abs.slope", "N_QTLs") %>% set_names
-corrs = models = map(metrics, ~ cor.test(as.formula(paste("~", .x, "+", "h2")), data = hsq), method = "spearman")
-corr.p = map(corrs, ~ .x$p.value)
-corr.cor = map(corrs, ~ .x$estimate)
 ```
 
 ```{r}
@@ -178,7 +188,9 @@ gridExtra::grid.arrange(grobs = gg, nrow=3)
 
 <br>
 
-#### Demonstrating correlation between $h^2$ and other metrics
+#### Can we observe correlation between $h^2$ and the other metrics?
+
+
 
 ```{r include=FALSE}
 
@@ -188,8 +200,6 @@ gg.sc$length = gg.sc$length + coord_cartesian(ylim = c(0,5e5)) +
     scale_y_continuous(labels = scales::comma_format(scale = .001, suffix = "Kb"))
 gg.sc$N_QTLs = gg.sc$N_QTLs
 ```
-
-
 
 <br>
 
@@ -201,6 +211,30 @@ gridExtra::grid.arrange(grobs = gg.sc, nrow=3)
 
 
 #### Demonstrating correlation between $h^2$ and other metrics
+
+
+I performed correlation test between $h^2$ and all the other metrics. `EDS`, `gene length`, and `N_eQTLs` showed the strongest correlation. All are inversely correlated with $h^2$. 
+
+- `EDS` was previously noted to negatively correlate with cis-eQTLs. One explanation is that mammalian genes have evolved a robustness to cope with regulatory genetic variation (Wang et al.). Thus genes with high EDS would be better explained by genomewide variants, rather than cis variants. This perhaps explains why higher EDS genes might have lower cis $h^2$.
+
+- gene length: should we restrict to length of CDS only?
+
+- N_QTLs: strange that it's negatively correlated. 
+    - Perhaps due to many more SNPs/eQTLs in the GTEx dataset relative to SNPs used for $h^2$ (eQTLgen  x EUR hapmap3)
+    - eQTLgen only has blood samples, but GTEx more diverse
+    
+
+
+```{r}
+corrs = models = map(metrics, ~ cor.test(as.formula(paste("~", .x, "+", "h2")), data = hsq), method = "spearman")
+corr.p = map(corrs, ~ .x$p.value)
+corr.cor = map(corrs, ~ .x$estimate)
+```
+
+```{r}
+data.frame(p = unlist(corr.p), cor.spearman = unlist(corr.cor)) %>% knitr::kable() %>% kableExtra::kable_styling()
+```
+
 
 ```{r, warning=FALSE, message=FALSE}
 
