@@ -366,7 +366,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -375,7 +375,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -387,7 +387,7 @@ div.tocify {
 <strong>Last updated:</strong> 2021-08-24
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>lab3updates/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -403,12 +403,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -475,16 +475,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree61bffed7486b76cf6221d4d02fd4a11dbade2a7ctargetblank61bffeda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/61bffed7486b76cf6221d4d02fd4a11dbade2a7c" target="_blank">61bffed</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreee11a24407f9b7aa33b399050420708ea4252e280targetblanke11a244a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/e11a24407f9b7aa33b399050420708ea4252e280" target="_blank">e11a244</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree61bffed7486b76cf6221d4d02fd4a11dbade2a7ctargetblank61bffeda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreee11a24407f9b7aa33b399050420708ea4252e280targetblanke11a244a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/61bffed7486b76cf6221d4d02fd4a11dbade2a7c" target="_blank">61bffed</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/e11a24407f9b7aa33b399050420708ea4252e280" target="_blank">e11a244</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -492,9 +492,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    .Rproj.user/
-
-Unstaged changes:
-    Modified:   analysis/ldsc_run.Rmd
 
 </code></pre>
 <p>
@@ -533,6 +530,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/e11a24407f9b7aa33b399050420708ea4252e280/analysis/ldsc_run.Rmd" target="_blank">e11a244</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+<td>
+wflow_publish(“analysis/ldsc_run.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/analysis/ldsc_run.Rmd" target="_blank">f534edc</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/daiuc/lab3updates/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/ldsc_run.html" target="_blank">f534edc</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+<td>
+update
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1005,7 +1053,7 @@ edit
 <div id="objective-2-estimate-impact-of-functional-and-regulatory-traits-on-cis-heritability" class="section level2">
 <h2>Objective 2: estimate impact of functional and regulatory traits on cis heritability</h2>
 <p>Effectively, we now compare cis gene heritability estimated from above with other metrics that measure regulatory or functional characteristics of genomic regions / genes.</p>
-<p>The following dataset from Wang et al. AJHG 2020 (<a href="https://doi.org/10.1016/j.ajhg.2020.01.012">link</a>) are used. <code>15,913</code> genes are incorporated from this dataset (after removing NA values). The <code>h^2</code> dataset and teh <code>EDS</code> dataset are joined together on gene IDs. After having removed negative <code>h^2</code> genes, <code>9,340</code> genes remain. Zscores are computed for each gene.</p>
+<p>The following dataset from Wang et al. AJHG 2020 (<a href="https://doi.org/10.1016/j.ajhg.2020.01.012">link</a>) are used. <code>15,913</code> genes are incorporated from this dataset (after removing NA values). The <code>h^2</code> dataset and teh <code>EDS</code> dataset are joined together on gene IDs. After having removed negative <code>h^2</code> genes, <code>8,936</code> genes remain. Zscores are computed for each gene.</p>
 <p><br></p>
 <p><strong>RVIS</strong></p>
 <p>The score is designed to rank genes in terms of whether they have more or less common functional genetic variation relative to the genome wide expectation given the amount of apparently neutral variation the gene has. A gene with a positive score has more common functional variation, and a gene with a negative score has less and is referred to as “intolerant”. By convention we rank all genes in order from most intolerant to least. As an example, a gene such as ATP1A3 has a RVIS score of -1.53 and a percentile of 3.37%, meaning it is amongst the 3.37% most intolerant of human genes.</p>
@@ -1013,9 +1061,9 @@ edit
 <p>The pLI score reflects the tolerance of a given gene to the loss of function on the basis of the number of protein truncating variants, that is, the frameshift, splice donor, splice acceptor, and stop-gain variants referenced for this gene in control databases weighted by the size of the gene and the sequencing coverage. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. We list here the main pitfalls to consider before using this score.</p>
 <p><strong>EDS</strong></p>
 <p>Combine features associated with enhancer-domain size to create an enhancer-domain score (EDS), which reﬂects the total size and redundancy of a gene’s non-coding regulatory architecture.</p>
-<div id="qc-plots" class="section level3">
-<h3>QC plots</h3>
-<p>After rounds of filtering about 9000 protein coding genes are left for downstream analysis</p>
+<p><br></p>
+<div id="example-of-combined-dataset" class="section level3">
+<h3>Example of combined dataset</h3>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1048,18 +1096,6 @@ N_QTLs
 </th>
 <th style="text-align:right;">
 length
-</th>
-<th style="text-align:right;">
-h2.z
-</th>
-<th style="text-align:right;">
-EDS.z
-</th>
-<th style="text-align:right;">
-pLI.z
-</th>
-<th style="text-align:right;">
-RVIS.z
 </th>
 </tr>
 </thead>
@@ -1095,18 +1131,6 @@ NA
 <td style="text-align:right;">
 20953
 </td>
-<td style="text-align:right;">
-0.7589362
-</td>
-<td style="text-align:right;">
--1.5895749
-</td>
-<td style="text-align:right;">
-0.8062138
-</td>
-<td style="text-align:right;">
-NA
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -1138,18 +1162,6 @@ A1BG
 </td>
 <td style="text-align:right;">
 8321
-</td>
-<td style="text-align:right;">
-2.5712414
-</td>
-<td style="text-align:right;">
--0.3339906
-</td>
-<td style="text-align:right;">
--0.7783100
-</td>
-<td style="text-align:right;">
--1.0199561
 </td>
 </tr>
 <tr>
@@ -1183,18 +1195,6 @@ A2M
 <td style="text-align:right;">
 48565
 </td>
-<td style="text-align:right;">
-0.9065529
-</td>
-<td style="text-align:right;">
-0.8956652
-</td>
-<td style="text-align:right;">
--0.7771903
-</td>
-<td style="text-align:right;">
--0.5445918
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -1226,18 +1226,6 @@ A2ML1
 </td>
 <td style="text-align:right;">
 64380
-</td>
-<td style="text-align:right;">
-0.5605331
-</td>
-<td style="text-align:right;">
--0.5380249
-</td>
-<td style="text-align:right;">
--0.7785358
-</td>
-<td style="text-align:right;">
-1.7979502
 </td>
 </tr>
 <tr>
@@ -1271,18 +1259,6 @@ NA
 <td style="text-align:right;">
 14332
 </td>
-<td style="text-align:right;">
--0.9956245
-</td>
-<td style="text-align:right;">
-0.4083528
-</td>
-<td style="text-align:right;">
--0.7785342
-</td>
-<td style="text-align:right;">
-NA
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -1315,25 +1291,20 @@ A4GALT
 <td style="text-align:right;">
 29177
 </td>
-<td style="text-align:right;">
-0.2047289
-</td>
-<td style="text-align:right;">
-0.6421733
-</td>
-<td style="text-align:right;">
--0.5005200
-</td>
-<td style="text-align:right;">
--0.7362766
-</td>
 </tr>
 </tbody>
 </table>
+<p><br></p>
+</div>
+<div id="qc-plots" class="section level3">
+<h3>QC plots</h3>
+<p>After rounds of filtering about 9000 protein coding genes are left for downstream analysis</p>
+<p><br></p>
 <div id="summary-stats-of-qualifying-snps-per-gene" class="section level4">
 <h4>Summary stats of qualifying SNPs per gene</h4>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
      12     352     445     449     545    1139 </code></pre>
+<p><br></p>
 </div>
 <div id="m_tot-distribution" class="section level4">
 <h4><span class="math inline">\(M_tot\)</span> distribution</h4>
@@ -1360,6 +1331,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-8-1.png" target="_blank">f534edc</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/daiuc/lab3updates/blob/91add15fe7824f6b2484f48a9cba3e435aa1827f/docs/figure/ldsc_run.Rmd/unnamed-chunk-8-1.png" target="_blank">91add15</a>
@@ -1414,6 +1396,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-9-1.png" target="_blank">f534edc</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/daiuc/lab3updates/blob/91add15fe7824f6b2484f48a9cba3e435aa1827f/docs/figure/ldsc_run.Rmd/unnamed-chunk-9-1.png" target="_blank">91add15</a>
 </td>
 <td>
@@ -1427,21 +1420,137 @@ daiuc
 </table>
 </div>
 </div>
+<p><br></p>
 </div>
 </div>
 <div id="comparison-cis-gene-heritability-and-other-gene-metrics" class="section level3">
 <h3>Comparison cis gene heritability and other gene metrics</h3>
+<p><br></p>
 <div id="distributions-of-other-gene-metrics" class="section level4">
 <h4>Distributions of other gene metrics</h4>
 <p><img src="figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" target="_blank">f534edc</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
 </div>
 <div id="demonstrating-correlation-between-h2-and-other-metrics" class="section level4">
 <h4>Demonstrating correlation between <span class="math inline">\(h^2\)</span> and other metrics</h4>
+<p><br></p>
 <p><img src="figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" target="_blank">f534edc</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
 </div>
 <div id="demonstrating-correlation-between-h2-and-other-metrics-1" class="section level4">
 <h4>Demonstrating correlation between <span class="math inline">\(h^2\)</span> and other metrics</h4>
 <p><img src="figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" target="_blank">f534edc</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1472,7 +1581,7 @@ attached base packages:
 other attached packages:
  [1] cowplot_1.1.1     data.table_1.14.0 forcats_0.5.1     stringr_1.4.0    
  [5] dplyr_1.0.7       purrr_0.3.4       readr_2.0.0       tidyr_1.1.3      
- [9] tibble_3.1.3      ggplot2_3.3.5     tidyverse_1.3.0  
+ [9] tibble_3.1.3      ggplot2_3.3.5     tidyverse_1.3.0   workflowr_1.6.2  
 
 loaded via a namespace (and not attached):
  [1] httr_1.4.2        sass_0.4.0        jsonlite_1.7.2    viridisLite_0.4.0
@@ -1491,9 +1600,9 @@ loaded via a namespace (and not attached):
 [53] compiler_3.6.1    jquerylib_0.1.4   systemfonts_1.0.2 rlang_0.4.11     
 [57] grid_3.6.1        rstudioapi_0.13   labeling_0.4.2    rmarkdown_2.9    
 [61] gtable_0.3.0      DBI_1.1.0         R6_2.5.0          gridExtra_2.3    
-[65] lubridate_1.7.10  knitr_1.33        utf8_1.1.4        workflowr_1.6.2  
-[69] rprojroot_1.3-2   stringi_1.4.6     Rcpp_1.0.7        vctrs_0.3.8      
-[73] dbplyr_2.1.1      tidyselect_1.1.1  xfun_0.24        </code></pre>
+[65] lubridate_1.7.10  knitr_1.33        utf8_1.1.4        rprojroot_1.3-2  
+[69] stringi_1.4.6     Rcpp_1.0.7        vctrs_0.3.8       dbplyr_2.1.1     
+[73] tidyselect_1.1.1  xfun_0.24        </code></pre>
 </div>
 </div>
 </div>
