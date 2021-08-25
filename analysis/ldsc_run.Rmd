@@ -48,19 +48,6 @@ Effectively, we now compare cis gene heritability estimated from above with othe
 
 The following dataset from Wang et al. AJHG 2020 ([link](https://doi.org/10.1016/j.ajhg.2020.01.012)) are used. `15,913` genes are incorporated from this dataset (after removing NA values). The `h^2` dataset and teh `EDS` dataset are joined together on gene IDs. After having removed negative `h^2` genes, `8,936` genes remain. Zscores are computed for each gene. 
 
-<br>
-
-**RVIS**
-
-The score is designed to rank genes in terms of whether they have more or less common functional genetic variation relative to the genome wide expectation given the amount of apparently neutral variation the gene has. A gene with a positive score has more common functional variation, and a gene with a negative score has less and is referred to as "intolerant". By convention we rank all genes in order from most intolerant to least. As an example, a gene such as ATP1A3 has a RVIS score of -1.53 and a percentile of 3.37%, meaning it is amongst the 3.37% most intolerant of human genes.
-
-**pLI**
-
-The pLI score reflects the tolerance of a given gene to the loss of function on the basis of the number of protein truncating variants, that is, the frameshift, splice donor, splice acceptor, and stop-gain variants referenced for this gene in control databases weighted by the size of the gene and the sequencing coverage. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. We list here the main pitfalls to consider before using this score.
-
-**EDS**
-
-Combine features associated with enhancer-domain size to create an enhancer-domain score (EDS), which reﬂects the total size and redundancy of a gene’s non-coding regulatory architecture.
 
 
 
@@ -148,9 +135,30 @@ ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "coral", alpha =
 
 <br>
 
-### Comparison cis gene heritability and other gene metrics
+### Is cis genetic heritability related to regulatory landscape, functional intolerance and constraints, or gene length?
+
+
+To answer this question, I investigated the following metrics:
+
+**EDS**
+
+EDS, or enhancer-domain score, reflects the total size and redundancy of a gene's non-coding regulatory architecture. *A higher EDS suggests a gene has higher non-coding regulatory interactions*. It was noted to be negatively correlated with cis eQTL ([Wang et al. 2020](https://doi.org/10.1016/j.ajhg.2020.01.012)). EDS is computed by first constructing enhancer domains for each gene from enhancer predictions from various data sources. For each enhancer domain per gene, domain size and redundancy of TF motifs are the main determinants of the final EDS value.
+
+In my analysis, EDS data is downloaded from Wang et al. 2020 paper.
+
 
 <br>
+
+**RVIS**
+
+RVIS (Residual Variation Intolerance Score) is designed to rank genes in terms of whether they have more or less common functional genetic variation *relative to the genome wide expectation* given the amount of apparently neutral variation the gene has. A gene with a positive score has more common functional variation, and a gene with a negative score has less and is referred to as "intolerant". By convention we rank all genes in order from most intolerant to least. As an example, a gene such as ATP1A3 has a RVIS score of -1.53 and a percentile of 3.37%, meaning it is amongst the 3.37% most intolerant of human genes. *A negative score indicates a gene has less than expected amount of functional variants, thus may be under purifying selection, while a positive score indicates higher than expected amount of functional variants, thus may be under balanced or positive selection.*
+
+RVIS score in this analysis is downloaded from the Wang et al. 2020 paper.
+
+**pLI**
+
+pLI (probability of being loss-of-function intolerant) reflects the tolerance of a gene to the loss of function mutations. *A higher value of pLI indicates a gene's function is more likely to be abrogated under a loss-of-function mutation*. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. We list here the main pitfalls to consider before using this score.
+
 
 #### Distributions of other gene metrics
 ```{r}
