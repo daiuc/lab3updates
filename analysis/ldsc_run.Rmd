@@ -4,12 +4,12 @@ author: "daiuc"
 date: "2021-08-17"
 output: workflowr::wflow_html
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-knitr::opts_chunk$set(echo = T, warning = F, message = F)
+knitr::opts_chunk$set(echo = T, warning = F, message = F, echo = FALSE)
 ```
 
 
@@ -67,70 +67,160 @@ Combine features associated with enhancer-domain size to create an enhancer-doma
 ```{r include=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(data.table)
+
+library(cowplot)
+theme_set(theme_cowplot())
 library(parallel)
 detectCores()
 ```
 
 
-```{r include=FALSE}
+```{r include=FALSE, warning=FALSE, message=FALSE}
+# read in data
 gene.lookup = fread("../eQTLs/data/geneID_geneSymbol_lookup.txt", sep = "\t", col.names = c("id","gene"))
 eds = readxl::read_xlsx("../eQTLs/data/wang_et_al_2020_AJHG_eds_pLI_RVIS.xlsx")
+gene.lengths = fread("../eQTLs/output/gencode.v31.primary.annotation.Protein_coding_gene_length.txt")
+gtex = fread("../eQTLs/output/GTEx_v8_sigif_eQTL_summ.txt")
 hsq = fread("../eQTLs/output/hsq.txt", sep="\t")
+```
+
+
+```{r include=FALSE}
+# massaging data, bringing all data into 1 dataframe
 hsq = inner_join(hsq, gene.lookup, by = "gene")
 remove_gene = group_by(hsq, gene) %>% summarise(n=n()) %>% filter( n > 2) %>% pull(gene)
 hsq = filter(hsq, ! gene %in% remove_gene) %>% 
         group_by(gene) %>% 
-        summarise(h2 = mean(h2)) %>%
+        summarise(h2 = mean(h2), m_tot = sum(m_tot)) %>%
         inner_join(gene.lookup, by = "gene")
-hsq = inner_join(hsq[,c("id","gene","h2")], eds[, c("GeneSymbol", "EDS","pLI","RVIS")], by = c("id" = "GeneSymbol"))
+hsq = inner_join(hsq[,c("id","gene","h2", "m_tot")], eds[, c("GeneSymbol", "EDS","pLI","RVIS")], by = c("id" = "GeneSymbol"))
 hsq = mutate_at(hsq, .vars = c("pLI", "RVIS"), .funs = "as.numeric")
 hsq = filter(hsq, h2 > 0)
+hsq = inner_join(hsq, gtex, by = c("id" = "gene_id"))
+hsq = inner_join(hsq, gene.lengths, by = c("id" = "gene_id"))
+```
+
+```{r}
 hsq = mutate(hsq, h2.z = scale(h2)[,1], EDS.z = scale(EDS)[,1], pLI.z = scale(pLI)[,1], RVIS.z = scale(RVIS)[,1])
 ```
+
+
+
+
+### QC plots
+
+After rounds of filtering about 9000 protein coding genes are left for downstream analysis
 
 ```{r echo=FALSE}
 head(hsq) %>% knitr::kable() %>% kableExtra::kable_styling()
 ```
 
-$h^2$ distribution for the `9,340` genes
+#### Summary stats of qualifying SNPs per gene
+
 ```{r echo=FALSE}
-ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "royalblue", alpha = .4, color = "royalblue")
+summary(hsq$m_tot)
+```
+
+
+#### $M_tot$ distribution
+
+```{r}
+ggplot(hsq) + geom_density(aes(m_tot, ..density..), fill="royalblue", alpha=.5)
+```
+
+
+#### $h^2$ distribution
+
+```{r, warning=FALSE, message=FALSE, }
+ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "coral", alpha = .5)
+```
+
+### Comparison cis gene heritability and other gene metrics
+
+#### Distributions of other gene metrics
+```{r}
+metrics = c("EDS", "pLI", "RVIS", "length", "max.abs.slope", "N_QTLs") %>% set_names
+corrs = models = map(metrics, ~ cor.test(as.formula(paste("~", .x, "+", "h2")), data = hsq), method = "spearman")
+corr.p = map(corrs, ~ .x$p.value)
+corr.cor = map(corrs, ~ .x$estimate)
+```
+
+```{r}
+gg = map2(metrics, 1:6, function(v,i) {ggplot(hsq) + geom_density(aes_string(v, "..density.."), fill = i, alpha = .5)})
+```
+
+```{r, warning=FALSE, message=FALSE, fig.height=8, fig.width=10}
+gridExtra::grid.arrange(grobs = gg, nrow=3)
 ```
 
 
 
-$h^2$ against normalized $EDS$, $pLI$, and $RVIS$
 
+#### Demonstrating correlation between $h^2$ and other metrics
 
 ```{r include=FALSE}
-g1 = ggplot(hsq, aes(h2.z, EDS.z)) +
+gg.sc1 = ggplot(hsq, aes(h2, EDS)) +
     geom_point( alpha = .3) + 
     geom_smooth(method = "lm")
-g2 = ggplot(hsq, aes(h2.z, pLI.z)) +
+gg.sc2 = ggplot(hsq, aes(h2, pLI)) +
     geom_point( alpha = .3) + 
     geom_smooth(method = "lm")
-g3 = ggplot(hsq, aes(h2.z, RVIS.z)) +
+gg.sc3 = ggplot(hsq, aes(h2, RVIS)) +
+    geom_point( alpha = .3) + 
+    geom_smooth(method = "lm")
+gg.sc4 = ggplot(hsq, aes(h2, log10(length))) +
+    geom_point( alpha = .3) + 
+    geom_smooth(method = "lm")
+gg.sc5 = ggplot(hsq, aes(h2, max.abs.slope)) +
+    geom_point( alpha = .3) + 
+    geom_smooth(method = "lm")
+gg.sc6 = ggplot(hsq, aes(h2, N_QTLs)) +
     geom_point( alpha = .3) + 
     geom_smooth(method = "lm")
 ```
 
 
 
-```{r, fig.height=8}
-gridExtra::grid.arrange(g1, g2, g3, nrow=2)
+```{r, warning=FALSE, message=FALSE, fig.height=8, fig.width=10}
+gridExtra::grid.arrange(gg.sc1, gg.sc2, gg.sc3, gg.sc4, gg.sc5, gg.sc6, nrow=3)
 ```
 
 
-```{r include=FALSE}
-g4 = ggplot(hsq, aes(h2.z, EDS.z)) +
-  geom_boxplot(aes(group = cut_width(h2.z, 1)))
-g5 = ggplot(hsq, aes(h2.z, pLI.z)) +
-  geom_boxplot(aes(group = cut_width(h2.z, 1)))
-g6 = ggplot(hsq, aes(h2.z, RVIS.z)) +
-  geom_boxplot(aes(group = cut_width(h2.z, 1)))
+#### Demonstrating correlation between $h^2$ and other metrics
+
+```{r, warning=FALSE, message=FALSE}
+
+gg.bx1 = ggplot(hsq, aes(h2, EDS)) +
+  geom_boxplot(aes(group = cut_width(h2, .01))) +
+  geom_text(aes(x=.02, y= .9, label=paste("cor:", scales::comma(corr.cor$EDS, accuracy = .01), 
+                            "p:", scales::scientific(corr.p$EDS))),color = 'blue')
+gg.bx2 = ggplot(hsq, aes(h2, pLI)) +
+  geom_boxplot(aes(group = cut_width(h2, .01))) +
+  geom_text(aes(x=.02, y= .95, label=paste("cor:", scales::comma(corr.cor$pLI, accuracy = .01), 
+                            "p:", scales::scientific(corr.p$pLI))),color = 'blue')
+gg.bx3 = ggplot(hsq, aes(h2, RVIS)) +
+  geom_boxplot(aes(group = cut_width(h2, .01))) +
+  geom_text(aes(x=.02, y= 95, label=paste("cor:", scales::comma(corr.cor$RVIS, accuracy = .01), 
+                            "p:", scales::scientific(corr.p$RVIS))),color = 'blue')
+gg.bx4 = ggplot(hsq, aes(h2, length)) +
+  geom_boxplot(aes(group = cut_width(h2, .01))) +
+  scale_y_log10() +
+  geom_text(aes(x=.02, y= quantile(length, .95), label=paste("cor:", scales::comma(corr.cor$length, accuracy = .01), 
+                            "p:", scales::scientific(corr.p$length))),color = 'blue')
+gg.bx5 = ggplot(hsq, aes(h2, max.abs.slope)) +
+  geom_boxplot(aes(group = cut_width(h2, .01))) +
+  geom_text(aes(x=.02, y= max(max.abs.slope), label=paste("cor:", scales::comma(corr.cor$max.abs.slope, accuracy = .01), 
+                            "p:", scales::scientific(corr.p$max.abs.slope))),color = 'blue')
+gg.bx6 = ggplot(hsq, aes(h2, N_QTLs)) +
+  geom_boxplot(aes(group = cut_width(h2, .01))) +
+  scale_y_log10() +
+  geom_text(aes(x=.02, y= 1000, label=paste("cor:", scales::comma(corr.cor$N_QTLs, accuracy = .01), 
+                            "p:", scales::scientific(corr.p$N_QTLs))),color = 'blue')
 ```
 
-```{r, fig.height=8}
-gridExtra::grid.arrange(g4,g5,g6, nrow=2)
+```{r, warning=FALSE, message=FALSE, fig.height=10, fig.width=10}
+gridExtra::grid.arrange(gg.bx1, gg.bx2, gg.bx3, gg.bx4, gg.bx5, gg.bx6, nrow=2)
 ```
+
+
 
