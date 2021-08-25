@@ -230,19 +230,7 @@ gridExtra::grid.arrange(grobs = gg.sc, nrow=3)
 #### Demonstrating correlation between $h^2$ and other metrics
 
 
-I performed correlation test between $h^2$ and all the other metrics. `EDS`, `gene length`, and `N_eQTLs` showed the strongest correlation. All are inversely correlated with $h^2$. 
 
-- `EDS` was previously noted to negatively correlate with cis-eQTLs. One explanation is that mammalian genes have evolved a robustness to cope with regulatory genetic variation (Wang et al.). Thus genes with high EDS would be better explained by genomewide variants, rather than cis variants. This perhaps explains why higher EDS genes might have lower cis $h^2$.
-
-- gene length: 
-    - possibly because longer genes do not necessarily contributes to more qualifying SNPs, as a result longer genes are penalized for heritability?
-    - should we restrict to length of CDS only?
-
-- N_QTLs: strange that it's negatively correlated. 
-    - Perhaps due to many more SNPs/eQTLs in the GTEx dataset relative to SNPs used for $h^2$ (eQTLgen  x EUR hapmap3)
-    - eQTLgen only has blood samples, but GTEx more diverse
-    
-- `RVIS` is positively correlated. Since a higher positive `RVIS` score means that there are likely more functional variants than expected (possible positive selection). Also from previous plot, it suggests that higher cis heritability may originate from the collective contribution of larger amount of common variants. From this standpoint, it makes sense that the two metrics should move in the same direction.
 
 
 ```{r}
@@ -254,6 +242,8 @@ corr.cor = map(corrs, ~ .x$estimate)
 ```{r}
 data.frame(p = unlist(corr.p), cor.spearman = unlist(corr.cor)) %>% knitr::kable() %>% kableExtra::kable_styling()
 ```
+
+<br>
 
 
 ```{r, warning=FALSE, message=FALSE}
@@ -290,5 +280,22 @@ gg.bx6 = ggplot(hsq, aes(h2, N_QTLs)) +
 gridExtra::grid.arrange(gg.bx1, gg.bx2, gg.bx3, gg.bx4, gg.bx5, gg.bx6, nrow=3)
 ```
 
+<br>
+
+#### Interprete result
+
+I performed correlation test between $h^2$ and all the other metrics. `EDS`, `gene length`, and `N_eQTLs` showed the strongest correlation. All are inversely correlated with $h^2$. 
+
+- `EDS` was previously noted to negatively correlate with cis-eQTLs. One explanation is that mammalian genes have evolved a robustness to cope with regulatory genetic variation (Wang et al.). Thus genes with high EDS would be better explained by genomewide variants, rather than cis variants. This perhaps explains why higher EDS genes might have lower cis $h^2$.
+
+- gene length: 
+    - possibly because longer genes do not necessarily contributes to more qualifying SNPs, as a result longer genes are penalized for heritability?
+    - should we restrict to length of CDS only?
+
+- N_QTLs: strange that it's negatively correlated. 
+    - Perhaps due to many more SNPs/eQTLs in the GTEx dataset relative to SNPs used for $h^2$ (eQTLgen  x EUR hapmap3)
+    - eQTLgen only has blood samples, but GTEx more diverse
+    
+- `RVIS` is positively correlated. Since a higher positive `RVIS` score means that there are likely more functional variants than expected (possible positive selection). Also from previous plot, it suggests that higher cis heritability may originate from the collective contribution of larger amount of common variants. From this standpoint, it makes sense that the two metrics should move in the same direction.
 
 
