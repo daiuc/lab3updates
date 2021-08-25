@@ -241,6 +241,8 @@ I performed correlation test between $h^2$ and all the other metrics. `EDS`, `ge
 - N_QTLs: strange that it's negatively correlated. 
     - Perhaps due to many more SNPs/eQTLs in the GTEx dataset relative to SNPs used for $h^2$ (eQTLgen  x EUR hapmap3)
     - eQTLgen only has blood samples, but GTEx more diverse
+    
+- `RVIS` is positively correlated. Since a higher positive `RVIS` score means that there are likely more functional variants than expected (possible positive selection). Also from previous plot, it suggests that higher cis heritability may originate from the collective contribution of larger amount of common variants. From this standpoint, it makes sense that the two metrics should move in the same direction.
 
 
 ```{r}
