@@ -123,14 +123,14 @@ summary(hsq$m_tot)
 #### Distribution of qualifying SNPs for $h^2$ estimate
 
 ```{r}
-ggplot(hsq) + geom_density(aes(m_tot, ..density..), fill="royalblue", alpha=.5)
+ggplot(hsq) + geom_density(aes(m_tot, ..density..), fill="royalblue", alpha=.5) + labs(x = bquote(M[tot]))
 ```
 
 
 #### $h^2$ distribution
 
 ```{r, warning=FALSE, message=FALSE, }
-ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "coral", alpha = .5)
+ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "coral", alpha = .5) + labs(x = bquote(h^2))
 ```
 
 <br>
@@ -157,7 +157,7 @@ RVIS score in this analysis is downloaded from the Wang et al. 2020 paper.
 
 **pLI**
 
-pLI (probability of being loss-of-function intolerant) reflects the tolerance of a gene to the loss of function mutations. *A higher value of pLI indicates a gene's function is more likely to be abrogated under a loss-of-function mutation*. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. We list here the main pitfalls to consider before using this score.
+pLI (probability of being loss-of-function intolerant) reflects the tolerance of a gene to the loss of function mutations. *A higher value of pLI indicates a gene's function is more likely to be abrogated under a loss-of-function mutation*. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. Note that pLI specifically measures the impact of loss of function variants, such as missense, frame shift, early stop codon, etc. 
 
 
 #### Distributions of other gene metrics
@@ -170,6 +170,7 @@ corr.cor = map(corrs, ~ .x$estimate)
 
 ```{r}
 gg = map2(metrics, 1:6, function(v,i) {ggplot(hsq) + geom_density(aes_string(v, "..density.."), fill = i, alpha = .5)})
+gg[[4]] = gg[[4]] + coord_cartesian(xlim = c(0,5e5)) + scale_x_continuous(labels = scales::comma_format(scale = .001, suffix = "Kb"))
 ```
 
 ```{r, warning=FALSE, message=FALSE, fig.height=8, fig.width=10}
@@ -182,24 +183,14 @@ gridExtra::grid.arrange(grobs = gg, nrow=3)
 #### Demonstrating correlation between $h^2$ and other metrics
 
 ```{r include=FALSE}
-gg.sc1 = ggplot(hsq, aes(h2, EDS)) +
-    geom_point( alpha = .3) + 
-    geom_smooth(method = "lm")
-gg.sc2 = ggplot(hsq, aes(h2, pLI)) +
-    geom_point( alpha = .3) + 
-    geom_smooth(method = "lm")
-gg.sc3 = ggplot(hsq, aes(h2, RVIS)) +
-    geom_point( alpha = .3) + 
-    geom_smooth(method = "lm")
-gg.sc4 = ggplot(hsq, aes(h2, log10(length))) +
-    geom_point( alpha = .3) + 
-    geom_smooth(method = "lm")
-gg.sc5 = ggplot(hsq, aes(h2, max.abs.slope)) +
-    geom_point( alpha = .3) + 
-    geom_smooth(method = "lm")
-gg.sc6 = ggplot(hsq, aes(h2, N_QTLs)) +
-    geom_point( alpha = .3) + 
-    geom_smooth(method = "lm")
+
+gg.sc = map2(metrics, 1:6, function(v,i) {ggplot(hsq, aes_string("h2", v)) + 
+    geom_point(color = i, alpha = .3) + 
+    geom_smooth(method = "lm", se = F) +
+    labs(x = bquote(h^2))})
+gg.sc$length = gg.sc$length + coord_cartesian(ylim = c(0,5e5)) + 
+    scale_y_continuous(labels = scales::comma_format(scale = .001, suffix = "Kb")) + geom_smooth(color = "red", se = F)
+gg.sc$N_QTLs = gg.sc$N_QTLs
 ```
 
 
@@ -207,7 +198,7 @@ gg.sc6 = ggplot(hsq, aes(h2, N_QTLs)) +
 <br>
 
 ```{r, warning=FALSE, message=FALSE, fig.height=8, fig.width=10}
-gridExtra::grid.arrange(gg.sc1, gg.sc2, gg.sc3, gg.sc4, gg.sc5, gg.sc6, nrow=3)
+gridExtra::grid.arrange(grobs = gg.sc, nrow=3)
 ```
 
 <br>
