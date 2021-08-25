@@ -384,7 +384,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-08-24
+<strong>Last updated:</strong> 2021-08-25
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -475,16 +475,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree9efd8260a50370ab1e34e23b7dfabfdcdf79aca0targetblank9efd826a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/9efd8260a50370ab1e34e23b7dfabfdcdf79aca0" target="_blank">9efd826</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreed749e6787cf92dcc1b7a420aed22f8f2035ead1ftargetblankd749e67a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/d749e6787cf92dcc1b7a420aed22f8f2035ead1f" target="_blank">d749e67</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestree9efd8260a50370ab1e34e23b7dfabfdcdf79aca0targetblank9efd826a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreed749e6787cf92dcc1b7a420aed22f8f2035ead1ftargetblankd749e67a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/9efd8260a50370ab1e34e23b7dfabfdcdf79aca0" target="_blank">9efd826</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/d749e6787cf92dcc1b7a420aed22f8f2035ead1f" target="_blank">d749e67</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -530,6 +530,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/daiuc/lab3updates/blob/d749e6787cf92dcc1b7a420aed22f8f2035ead1f/analysis/ldsc_run.Rmd" target="_blank">d749e67</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-25
+</td>
+<td>
+wflow_publish(“analysis/ldsc_run.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/daiuc/lab3updates/2662304af90a7356385b932986ab2bfd1c8e33b1/docs/ldsc_run.html" target="_blank">2662304</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1123,13 +1157,6 @@ edit
 <p>Effectively, we now compare cis gene heritability estimated from above with other metrics that measure regulatory or functional characteristics of genomic regions / genes.</p>
 <p>The following dataset from Wang et al. AJHG 2020 (<a href="https://doi.org/10.1016/j.ajhg.2020.01.012">link</a>) are used. <code>15,913</code> genes are incorporated from this dataset (after removing NA values). The <code>h^2</code> dataset and teh <code>EDS</code> dataset are joined together on gene IDs. After having removed negative <code>h^2</code> genes, <code>8,936</code> genes remain. Zscores are computed for each gene.</p>
 <p><br></p>
-<p><strong>RVIS</strong></p>
-<p>The score is designed to rank genes in terms of whether they have more or less common functional genetic variation relative to the genome wide expectation given the amount of apparently neutral variation the gene has. A gene with a positive score has more common functional variation, and a gene with a negative score has less and is referred to as “intolerant”. By convention we rank all genes in order from most intolerant to least. As an example, a gene such as ATP1A3 has a RVIS score of -1.53 and a percentile of 3.37%, meaning it is amongst the 3.37% most intolerant of human genes.</p>
-<p><strong>pLI</strong></p>
-<p>The pLI score reflects the tolerance of a given gene to the loss of function on the basis of the number of protein truncating variants, that is, the frameshift, splice donor, splice acceptor, and stop-gain variants referenced for this gene in control databases weighted by the size of the gene and the sequencing coverage. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. We list here the main pitfalls to consider before using this score.</p>
-<p><strong>EDS</strong></p>
-<p>Combine features associated with enhancer-domain size to create an enhancer-domain score (EDS), which reﬂects the total size and redundancy of a gene’s non-coding regulatory architecture.</p>
-<p><br></p>
 <div id="example-of-combined-dataset" class="section level3">
 <h3>Example of combined dataset</h3>
 <table class="table" style="margin-left: auto; margin-right: auto;">
@@ -1491,9 +1518,18 @@ daiuc
 <p><br></p>
 </div>
 </div>
-<div id="comparison-cis-gene-heritability-and-other-gene-metrics" class="section level3">
-<h3>Comparison cis gene heritability and other gene metrics</h3>
+<div id="is-cis-genetic-heritability-related-to-regulatory-landscape-functional-intolerance-and-constraints-or-gene-length" class="section level3">
+<h3>Is cis genetic heritability related to regulatory landscape, functional intolerance and constraints, or gene length?</h3>
+<p>To answer this question, I investigated the following metrics:</p>
+<p><strong>EDS</strong></p>
+<p>EDS, or enhancer-domain score, reflects the total size and redundancy of a gene’s non-coding regulatory architecture. <em>A higher EDS suggests a gene has higher non-coding regulatory interactions</em>. It was noted to be negatively correlated with cis eQTL (<a href="https://doi.org/10.1016/j.ajhg.2020.01.012">Wang et al. 2020</a>). EDS is computed by first constructing enhancer domains for each gene from enhancer predictions from various data sources. For each enhancer domain per gene, domain size and redundancy of TF motifs are the main determinants of the final EDS value.</p>
+<p>In my analysis, EDS data is downloaded from Wang et al. 2020 paper.</p>
 <p><br></p>
+<p><strong>RVIS</strong></p>
+<p>RVIS (Residual Variation Intolerance Score) is designed to rank genes in terms of whether they have more or less common functional genetic variation <em>relative to the genome wide expectation</em> given the amount of apparently neutral variation the gene has. A gene with a positive score has more common functional variation, and a gene with a negative score has less and is referred to as “intolerant”. By convention we rank all genes in order from most intolerant to least. As an example, a gene such as ATP1A3 has a RVIS score of -1.53 and a percentile of 3.37%, meaning it is amongst the 3.37% most intolerant of human genes. <em>A negative score indicates a gene has less than expected amount of functional variants, thus may be under purifying selection, while a positive score indicates higher than expected amount of functional variants, thus may be under balanced or positive selection.</em></p>
+<p>RVIS score in this analysis is downloaded from the Wang et al. 2020 paper.</p>
+<p><strong>pLI</strong></p>
+<p>pLI (probability of being loss-of-function intolerant) reflects the tolerance of a gene to the loss of function mutations. <em>A higher value of pLI indicates a gene’s function is more likely to be abrogated under a loss-of-function mutation</em>. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. We list here the main pitfalls to consider before using this score.</p>
 <div id="distributions-of-other-gene-metrics" class="section level4">
 <h4>Distributions of other gene metrics</h4>
 <p><img src="figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
