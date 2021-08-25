@@ -133,7 +133,7 @@ summary(hsq$m_tot)
 
 <br>
 
-#### Distribution of qualifying SNPs for $h2$ estimate
+#### Distribution of qualifying SNPs for $h^2$ estimate
 
 ```{r}
 ggplot(hsq) + geom_density(aes(m_tot, ..density..), fill="royalblue", alpha=.5)
