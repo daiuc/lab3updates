@@ -42,13 +42,11 @@ Result:
 ---
 
 
-## Objective 2: estimate impact of functional and regulatory traits on cis heritability
+## Objective 2: explore the relationships between heritability and gene features
 
 Effectively, we now compare cis gene heritability estimated from above with other metrics that measure regulatory or functional characteristics of genomic regions / genes.
 
 The following dataset from Wang et al. AJHG 2020 ([link](https://doi.org/10.1016/j.ajhg.2020.01.012)) are used. `15,913` genes are incorporated from this dataset (after removing NA values). The `h^2` dataset and teh `EDS` dataset are joined together on gene IDs. After having removed negative `h^2` genes, `8,936` genes remain. Zscores are computed for each gene. 
-
-
 
 
 <br> 
@@ -184,12 +182,10 @@ gridExtra::grid.arrange(grobs = gg, nrow=3)
 
 ```{r include=FALSE}
 
-gg.sc = map2(metrics, 1:6, function(v,i) {ggplot(hsq, aes_string("h2", v)) + 
-    geom_point(color = i, alpha = .3) + 
-    geom_smooth(method = "lm", se = F) +
+gg.sc = map(metrics,function(v,i) {ggplot(hsq, aes_string("h2", v)) + geom_point(alpha = .3) + geom_smooth(method = "lm", se = F) +
     labs(x = bquote(h^2))})
 gg.sc$length = gg.sc$length + coord_cartesian(ylim = c(0,5e5)) + 
-    scale_y_continuous(labels = scales::comma_format(scale = .001, suffix = "Kb")) + geom_smooth(color = "red", se = F)
+    scale_y_continuous(labels = scales::comma_format(scale = .001, suffix = "Kb"))
 gg.sc$N_QTLs = gg.sc$N_QTLs
 ```
 
