@@ -7,50 +7,44 @@ editor_options:
   chunk_output_type: inline
 ---
 
-
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 knitr::opts_chunk$set(echo = T, warning = F, message = F, echo = FALSE)
-```
 
+```
 
 ## Objective 1: estimate each gene's total cis heritability
 
-A given gene's total heritability can be estimated by first estimate average per SNP heritability for each annotation category $\bar{\tau_c}$. Then A given gene's total heritability can be computed by multiplying number of all qualifying SNPs in cis
-Modified `ldsc` codes to output $\tau_c$ of each category as well as overlapping SNPs. 
-
-
+A given gene's total heritability can be estimated by first estimate average per SNP heritability for each annotation category $\bar{\tau_c}$. Then A given gene's total heritability can be computed by multiplying number of all qualifying SNPs in cis Modified `ldsc` codes to output $\tau_c$ of each category as well as overlapping SNPs.
 
 $$h^2_g(total) = \sum_C{M_c \bar{\tau_c}}$$
 
 To compute $M_c$ and $\bar{\tau_c}$, I made these modifications in the original scripts of [LD SCore v1.0.1](https://github.com/bulik/ldsc):
 
-- Output number of SNPs for each category, essentially an inner join between cis-eQTL summary stats SNPs and LD score SNPs from each of the 53 category (including base, ie. just SNPs). 
-- This involves modifying the functions of:
-    - `annot_parser`, `annot` functions in the `parse.py` script
-    - `_read_annot` function in the `sumstats.py` script
-    - `_overlap_output` method in the `regression.py` script
-- With the modification, `ldsc` will now output correct intersected `M_annot` or number of cis-eQTL SNPs for each category
-- Code for computing coefficient is not modified, since it already only take in intersection between ld score SNPs and cis-eQTL SNPs
+-   Output number of SNPs for each category, essentially an inner join between cis-eQTL summary stats SNPs and LD score SNPs from each of the 53 category (including base, ie. just SNPs).
 
-Result:
-- $h^2$ for 18373 genes are estimated
+-   This involves modifying the functions of:
 
+    -   `annot_parser`, `annot` functions in the `parse.py` script
+    -   `_read_annot` function in the `sumstats.py` script
+    -   `_overlap_output` method in the `regression.py` script
+
+-   With the modification, `ldsc` will now output correct intersected `M_annot` or number of cis-eQTL SNPs for each category
+
+-   Code for computing coefficient is not modified, since it already only take in intersection between ld score SNPs and cis-eQTL SNPs
+
+Result: - $h^2$ for 18373 genes are estimated
 
 [Modified code](modified_code.html)
 
-
----
-
+------------------------------------------------------------------------
 
 ## Objective 2: explore the relationships between heritability and gene features
 
 Effectively, we now compare cis gene heritability estimated from above with other metrics that measure regulatory or functional characteristics of genomic regions / genes.
 
-The following dataset from Wang et al. AJHG 2020 ([link](https://doi.org/10.1016/j.ajhg.2020.01.012)) are used. `15,913` genes are incorporated from this dataset (after removing NA values). The `h^2` dataset and teh `EDS` dataset are joined together on gene IDs. After having removed negative `h^2` genes, `8,936` genes remain. Zscores are computed for each gene. 
+The following dataset from Wang et al. AJHG 2020 ([link](https://doi.org/10.1016/j.ajhg.2020.01.012)) are used. `15,913` genes are incorporated from this dataset (after removing NA values). The `h^2` dataset and teh `EDS` dataset are joined together on gene IDs. After having removed negative `h^2` genes, `8,936` genes remain. Zscores are computed for each gene.
 
-
-<br> 
-
+<br>
 
 ```{r include=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
@@ -58,40 +52,68 @@ library(data.table)
 
 library(cowplot)
 theme_set(theme_cowplot())
-library(parallel)
-detectCores()
+
+library(furrr)
+
 ```
 
+```{r include=FALSE, echo=FALSE, eval=FALSE}
 
-```{r include=FALSE, warning=FALSE, message=FALSE}
+# only used once to construct gene length file
+plan(multisession, workers = 4)
+future_globals_maxSize = 30*1024*1024^2 # this is effectively 30GB
+options(future.globals.maxSize = future_globals_maxSize)
+
+# make gene length
+gtf = fread("../heritability/data/gencode.v31.primary_assembly.annotation.pandas.df.20200108.txt")
+gene_ids = filter(gtf, str_detect(gene_id2, "ENSG[0-9]+$") & 
+                    gene_type %in% c("protein_coding") & 
+                    feature %in% c("CDS")) %>% pull(gene_id2) %>% unique
+
+calcGeneCDSLength = function(gtf.df, gene.id) {
+  filter(gtf.df, gene_id2 == gene.id & 
+         gene_type %in% c("protein_coding") & 
+         feature %in% c("CDS")) %>%
+      mutate(length = end-start + 1) %>%
+      select(gene_id2, gene_name, start, end, exon_number, length) %>%
+      group_by(gene_id2, gene_name, exon_number) %>% 
+      summarise(length = sum(length), .groups = "drop") %>% 
+      group_by(gene_id2, gene_name) %>% summarise(length = sum(length), .groups = "drop")
+}
+
+gene.lengths = future_map_dfr(gene_ids, ~calcGeneCDSLength(gtf, .x))
+fwrite(gene.lengths, "../heritability/data/gencode.v31.primary.gene.CDS_Lengths.txt")
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
 # read in data
-gene.lookup = fread("../eQTLs/data/geneID_geneSymbol_lookup.txt", sep = "\t", col.names = c("id","gene"))
-eds = readxl::read_xlsx("../eQTLs/data/wang_et_al_2020_AJHG_eds_pLI_RVIS.xlsx")
-gene.lengths = fread("../eQTLs/output/gencode.v31.primary.annotation.Protein_coding_gene_length.txt")
-gtex = fread("../eQTLs/output/GTEx_v8_sigif_eQTL_summ.txt")
-hsq = fread("../eQTLs/output/hsq.txt", sep="\t")
-```
 
+gene.lookup = fread("../heritability/data/geneID_geneSymbol_lookup.txt", sep = "\t", col.names = c("id","gene")) %>% rename("gene_id"="id", "gene_nm"="gene")
+eds = readxl::read_xlsx("../heritability/data/wang_et_al_2020_AJHG_eds_pLI_RVIS.xlsx")
+gene.lengths = fread("../heritability/data/gencode.v31.primary.gene.CDS_Lengths.txt") %>%
+  rename("gene_id"="gene_id2")
+gtex = fread("../heritability/output/GTEx_v8_sigif_eQTL_summ.txt")
+hsq = fread("../heritability/output/hsq.txt", sep="\t") %>% rename("gene_id"="gene")
+```
 
 ```{r include=FALSE}
 # massaging data, bringing all data into 1 dataframe
-hsq = inner_join(hsq, gene.lookup, by = "gene")
-remove_gene = group_by(hsq, gene) %>% summarise(n=n()) %>% filter( n > 2) %>% pull(gene)
-hsq = filter(hsq, ! gene %in% remove_gene) %>% 
-        group_by(gene) %>% 
-        summarise(h2 = mean(h2), m_tot = sum(m_tot)) %>%
-        inner_join(gene.lookup, by = "gene")
-hsq = inner_join(hsq[,c("id","gene","h2", "m_tot")], eds[, c("GeneSymbol", "EDS","pLI","RVIS")], by = c("id" = "GeneSymbol"))
+hsq = inner_join(hsq, gene.lookup)
+remove_gene = group_by(hsq, gene_id) %>% summarise(n=n()) %>% filter( n > 2) %>% pull(gene_id)
+hsq = filter(hsq, ! gene_id %in% remove_gene) %>% 
+        group_by(gene_id) %>% 
+        summarise(h2 = mean(h2), m_tot = sum(m_tot), .groups = "drop") %>%
+        inner_join(gene.lookup, by = "gene_id")
+hsq = inner_join(hsq[,c("gene_id","gene_nm","h2", "m_tot")], eds[, c("GeneSymbol", "EDS","pLI","RVIS")], by = c("gene_id" = "GeneSymbol"))
 hsq = mutate_at(hsq, .vars = c("pLI", "RVIS"), .funs = "as.numeric")
 hsq = filter(hsq, h2 > 0)
-hsq = inner_join(hsq, gtex, by = c("id" = "gene_id"))
-hsq = inner_join(hsq, gene.lengths, by = c("id" = "gene_id"))
+hsq = inner_join(hsq, gtex[, c("gene_id", "max.abs.slope_z", "N_QTLs")], by = "gene_id")
+hsq = inner_join(hsq, gene.lengths[,-c("gene_name")], by = "gene_id")
 ```
 
 ```{r}
 hsq = mutate(hsq, h2.z = scale(h2)[,1], EDS.z = scale(EDS)[,1], pLI.z = scale(pLI)[,1], RVIS.z = scale(RVIS)[,1])
 ```
-
 
 ### Example of combined dataset
 
@@ -101,12 +123,9 @@ head(hsq) %>% select(-h2.z, -EDS.z, -pLI.z, -RVIS.z) %>% knitr::kable() %>% kabl
 
 <br>
 
-
 ### QC plots
 
 After rounds of filtering about 9000 protein coding genes are left for downstream analysis
-
-
 
 <br>
 
@@ -124,21 +143,19 @@ summary(hsq$m_tot)
 ggplot(hsq) + geom_density(aes(m_tot, ..density..), fill="royalblue", alpha=.5) + labs(x = bquote(M[tot]))
 ```
 
-
 #### $h^2$ distribution
 
 ```{r, warning=FALSE, message=FALSE, }
 ggplot(hsq) + geom_density(aes(x = h2, y = ..density..), fill = "coral", alpha = .5) + labs(x = bquote(h^2))
 ```
 
-#### Test correlation between qualifying SNPs and heritability. 
-
+#### Test correlation between qualifying SNPs and heritability.
 
 More qualifying SNPs do seem to contribute to higher heribability. However, longer genes do not seem to include more qualifying SNPs.
+
 ```{r}
 cor.test(~ m_tot + h2, data = hsq)
 ```
-
 
 ```{r}
 g1 = ggplot(hsq) + geom_boxplot(aes(h2, m_tot, group = cut_width(h2, .01))) + 
@@ -147,11 +164,9 @@ g2 = ggplot(hsq) + geom_boxplot(aes(log10(length), m_tot, group = cut_number(len
 gridExtra::grid.arrange(g1, g2, nrow=2)
 ```
 
-
 <br>
 
 ### Is cis genetic heritability related to regulatory landscape, functional intolerance and constraints, or gene length?
-
 
 To answer this question, I investigated the following metrics:
 
@@ -160,7 +175,6 @@ To answer this question, I investigated the following metrics:
 EDS, or enhancer-domain score, reflects the total size and redundancy of a gene's non-coding regulatory architecture. *A higher EDS suggests a gene has higher non-coding regulatory interactions*. It was noted to be negatively correlated with cis eQTL ([Wang et al. 2020](https://doi.org/10.1016/j.ajhg.2020.01.012)). EDS is computed by first constructing enhancer domains for each gene from enhancer predictions from various data sources. For each enhancer domain per gene, domain size and redundancy of TF motifs are the main determinants of the final EDS value.
 
 In my analysis, EDS data is downloaded from Wang et al. 2020 paper.
-
 
 <br>
 
@@ -172,12 +186,11 @@ RVIS score in this analysis is downloaded from the Wang et al. 2020 paper.
 
 **pLI**
 
-pLI (probability of being loss-of-function intolerant) reflects the tolerance of a gene to the loss of function mutations. *A higher value of pLI indicates a gene's function is more likely to be abrogated under a loss-of-function mutation*. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. Note that pLI specifically measures the impact of loss of function variants, such as missense, frame shift, early stop codon, etc. 
-
+pLI (probability of being loss-of-function intolerant) reflects the tolerance of a gene to the loss of function mutations. *A higher value of pLI indicates a gene's function is more likely to be abrogated under a loss-of-function mutation*. It is frequently used to prioritize candidate genes when analyzing whole exome or whole genome data. Note that pLI specifically measures the impact of loss of function variants, such as missense, frame shift, early stop codon, etc.
 
 **gene length**
 
-I filtered protein coding genes and computed gene length from Gencode hg38 V31 GTF file. 
+I filtered protein coding genes and computed gene length from Gencode hg38 V31 GTF file.
 
 **max.abs.slope**
 
@@ -185,12 +198,12 @@ I downloaded cis-eQTL significant SNP-gene pair dataset from GTEx V8 analysis. D
 
 **GTEx V8 N_QTL**
 
-N_QTL refers to the number of significant cis-eQTLs per gene. 
+N_QTL refers to the number of significant cis-eQTLs per gene.
 
 #### Distributions of other gene metrics
 
 ```{r}
-metrics = c("EDS", "pLI", "RVIS", "length", "max.abs.slope", "N_QTLs") %>% set_names
+metrics = c("EDS", "pLI", "RVIS", "length", "max.abs.slope_z", "N_QTLs") %>% set_names
 ```
 
 ```{r}
@@ -202,12 +215,9 @@ gg[[4]] = gg[[4]] + coord_cartesian(xlim = c(0,5e5)) + scale_x_continuous(labels
 gridExtra::grid.arrange(grobs = gg, nrow=3)
 ```
 
-
 <br>
 
 #### Can we observe correlation between $h^2$ and the other metrics?
-
-
 
 ```{r include=FALSE}
 
@@ -226,12 +236,7 @@ gridExtra::grid.arrange(grobs = gg.sc, nrow=3)
 
 <br>
 
-
 #### Demonstrating correlation between $h^2$ and other metrics
-
-
-
-
 
 ```{r}
 corrs = models = map(metrics, ~ cor.test(as.formula(paste("~", .x, "+", "h2")), data = hsq), method = "spearman")
@@ -244,7 +249,6 @@ data.frame(p = unlist(corr.p), cor.spearman = unlist(corr.cor)) %>% knitr::kable
 ```
 
 <br>
-
 
 ```{r, warning=FALSE, message=FALSE}
 
@@ -265,10 +269,10 @@ gg.bx4 = ggplot(hsq, aes(h2, length)) +
   scale_y_log10() +
   geom_text(aes(x=.02, y= quantile(length, .95), label=paste("cor:", scales::comma(corr.cor$length, accuracy = .01), 
                             "p:", scales::scientific(corr.p$length))),color = 'blue')
-gg.bx5 = ggplot(hsq, aes(h2, max.abs.slope)) +
+gg.bx5 = ggplot(hsq, aes(h2, max.abs.slope_z)) +
   geom_boxplot(aes(group = cut_width(h2, .01))) +
-  geom_text(aes(x=.02, y= max(max.abs.slope), label=paste("cor:", scales::comma(corr.cor$max.abs.slope, accuracy = .01), 
-                            "p:", scales::scientific(corr.p$max.abs.slope))),color = 'blue')
+  geom_text(aes(x=.02, y= max(max.abs.slope_z), label=paste("cor:", scales::comma(corr.cor$max.abs.slope, accuracy = .01), 
+                            "p:", scales::scientific(corr.p$max.abs.slope_z))),color = 'blue')
 gg.bx6 = ggplot(hsq, aes(h2, N_QTLs)) +
   geom_boxplot(aes(group = cut_width(h2, .01))) +
   scale_y_log10() +
@@ -284,18 +288,18 @@ gridExtra::grid.arrange(gg.bx1, gg.bx2, gg.bx3, gg.bx4, gg.bx5, gg.bx6, nrow=3)
 
 #### Interprete result
 
-I performed correlation test between $h^2$ and all the other metrics. `EDS`, `gene length`, and `N_eQTLs` showed the strongest correlation. All are inversely correlated with $h^2$. 
+I performed correlation test between $h^2$ and all the other metrics. `EDS`, `gene length`, and `N_eQTLs` showed the strongest correlation. All are inversely correlated with $h^2$.
 
-- `EDS` was previously noted to negatively correlate with cis-eQTLs. One explanation is that mammalian genes have evolved a robustness to cope with regulatory genetic variation (Wang et al.). Thus genes with high EDS would be better explained by genomewide variants, rather than cis variants. This perhaps explains why higher EDS genes might have lower cis $h^2$.
+-   `EDS` was previously noted to negatively correlate with cis-eQTLs. One explanation is that mammalian genes have evolved a robustness to cope with regulatory genetic variation (Wang et al.). Thus genes with high EDS would be better explained by genomewide variants, rather than cis variants. This perhaps explains why higher EDS genes might have lower cis $h^2$.
 
-- gene length: 
-    - possibly because longer genes do not necessarily contributes to more qualifying SNPs, as a result longer genes are penalized for heritability?
-    - should we restrict to length of CDS only?
+-   gene length:
 
-- N_QTLs: strange that it's negatively correlated. 
-    - Perhaps due to many more SNPs/eQTLs in the GTEx dataset relative to SNPs used for $h^2$ (eQTLgen  x EUR hapmap3)
-    - eQTLgen only has blood samples, but GTEx more diverse
-    
-- `RVIS` is positively correlated. Since a higher positive `RVIS` score means that there are likely more functional variants than expected (possible positive selection). Also from previous plot, it suggests that higher cis heritability may originate from the collective contribution of larger amount of common variants. From this standpoint, it makes sense that the two metrics should move in the same direction.
+    -   possibly because longer genes do not necessarily contributes to more qualifying SNPs, as a result longer genes are penalized for heritability?
+    -   should we restrict to length of CDS only?
 
+-   N_QTLs: strange that it's negatively correlated.
 
+    -   Perhaps due to many more SNPs/eQTLs in the GTEx dataset relative to SNPs used for $h^2$ (eQTLgen x EUR hapmap3)
+    -   eQTLgen only has blood samples, but GTEx more diverse
+
+-   `RVIS` is positively correlated. Since a higher positive `RVIS` score means that there are likely more functional variants than expected (possible positive selection). Also from previous plot, it suggests that higher cis heritability may originate from the collective contribution of larger amount of common variants. From this standpoint, it makes sense that the two metrics should move in the same direction.

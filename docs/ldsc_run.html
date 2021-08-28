@@ -15,6 +15,7 @@
 
 <title>ldsc_run</title>
 
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -48,6 +49,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -366,7 +369,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -375,7 +378,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -384,10 +387,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-08-25
+<strong>Last updated:</strong> 2021-08-28
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>lab3updates/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -403,12 +406,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -432,7 +435,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongSeedstrongcodesetseed20210810code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20210810)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20210810)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
@@ -475,23 +478,27 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreef497973d6c17e969900e525e555267e000857893targetblankf497973a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/f497973d6c17e969900e525e555267e000857893" target="_blank">f497973</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreeabf344d658273f4dc214a220408aad8335c945c0targetblankabf344da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/daiuc/lab3updates/tree/abf344d658273f4dc214a220408aad8335c945c0" target="_blank">abf344d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreef497973d6c17e969900e525e555267e000857893targetblankf497973a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomdaiuclab3updatestreeabf344d658273f4dc214a220408aad8335c945c0targetblankabf344da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/f497973d6c17e969900e525e555267e000857893" target="_blank">f497973</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/daiuc/lab3updates/tree/abf344d658273f4dc214a220408aad8335c945c0" target="_blank">abf344d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Unstaged changes:
+    Modified:   analysis/ldsc_run.Rmd
 
 </code></pre>
 <p>
@@ -530,6 +537,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/daiuc/lab3updates/abf344d658273f4dc214a220408aad8335c945c0/docs/ldsc_run.html" target="_blank">abf344d</a>
+</td>
+<td>
+daiuc
+</td>
+<td>
+2021-08-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1359,15 +1383,15 @@ edit
 <p><span class="math display">\[h^2_g(total) = \sum_C{M_c \bar{\tau_c}}\]</span></p>
 <p>To compute <span class="math inline">\(M_c\)</span> and <span class="math inline">\(\bar{\tau_c}\)</span>, I made these modifications in the original scripts of <a href="https://github.com/bulik/ldsc">LD SCore v1.0.1</a>:</p>
 <ul>
-<li>Output number of SNPs for each category, essentially an inner join between cis-eQTL summary stats SNPs and LD score SNPs from each of the 53 category (including base, ie. just SNPs).</li>
-<li>This involves modifying the functions of:
+<li><p>Output number of SNPs for each category, essentially an inner join between cis-eQTL summary stats SNPs and LD score SNPs from each of the 53 category (including base, ie. just SNPs).</p></li>
+<li><p>This involves modifying the functions of:</p>
 <ul>
 <li><code>annot_parser</code>, <code>annot</code> functions in the <code>parse.py</code> script</li>
 <li><code>_read_annot</code> function in the <code>sumstats.py</code> script</li>
 <li><code>_overlap_output</code> method in the <code>regression.py</code> script</li>
 </ul></li>
-<li>With the modification, <code>ldsc</code> will now output correct intersected <code>M_annot</code> or number of cis-eQTL SNPs for each category</li>
-<li>Code for computing coefficient is not modified, since it already only take in intersection between ld score SNPs and cis-eQTL SNPs</li>
+<li><p>With the modification, <code>ldsc</code> will now output correct intersected <code>M_annot</code> or number of cis-eQTL SNPs for each category</p></li>
+<li><p>Code for computing coefficient is not modified, since it already only take in intersection between ld score SNPs and cis-eQTL SNPs</p></li>
 </ul>
 <p>Result: - <span class="math inline">\(h^2\)</span> for 18373 genes are estimated</p>
 <p><a href="modified_code.html">Modified code</a></p>
@@ -1384,10 +1408,10 @@ edit
 <thead>
 <tr>
 <th style="text-align:left;">
-id
+gene_id
 </th>
 <th style="text-align:left;">
-gene
+gene_nm
 </th>
 <th style="text-align:right;">
 h2
@@ -1405,7 +1429,7 @@ pLI
 RVIS
 </th>
 <th style="text-align:right;">
-max.abs.slope
+max.abs.slope_z
 </th>
 <th style="text-align:right;">
 N_QTLs
@@ -1418,194 +1442,194 @@ length
 <tbody>
 <tr>
 <td style="text-align:left;">
-ENSG00000198156
+ENSG00000000419
 </td>
 <td style="text-align:left;">
-A-575C2.4
+DPM1
 </td>
 <td style="text-align:right;">
-0.0266764
+0.0105250
 </td>
 <td style="text-align:right;">
-332
+576
 </td>
 <td style="text-align:right;">
-0.2716995
+0.4441988
 </td>
 <td style="text-align:right;">
-0.6361365
+0.5367475
 </td>
 <td style="text-align:right;">
-NA
+64.45
 </td>
 <td style="text-align:right;">
-0.572727
+4.595151
 </td>
 <td style="text-align:right;">
-468
+98
 </td>
 <td style="text-align:right;">
-20953
+3187
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000121410
+ENSG00000000457
 </td>
 <td style="text-align:left;">
-A1BG
+SCYL3
 </td>
 <td style="text-align:right;">
-0.0495208
+0.0179916
 </td>
 <td style="text-align:right;">
-378
+381
 </td>
 <td style="text-align:right;">
-0.4335409
+0.5631780
 </td>
 <td style="text-align:right;">
-0.0000906
+0.5470538
 </td>
 <td style="text-align:right;">
-18.29
+51.26
 </td>
 <td style="text-align:right;">
-0.864126
+9.650809
 </td>
 <td style="text-align:right;">
-289
+1358
 </td>
 <td style="text-align:right;">
-8321
+8282
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000175899
+ENSG00000000460
 </td>
 <td style="text-align:left;">
-A2M
+C1orf112
 </td>
 <td style="text-align:right;">
-0.0285372
-</td>
-<td style="text-align:right;">
-376
-</td>
-<td style="text-align:right;">
-0.5920401
-</td>
-<td style="text-align:right;">
-0.0005401
-</td>
-<td style="text-align:right;">
-31.88
-</td>
-<td style="text-align:right;">
-0.427895
-</td>
-<td style="text-align:right;">
-646
-</td>
-<td style="text-align:right;">
-48565
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ENSG00000166535
-</td>
-<td style="text-align:left;">
-A2ML1
-</td>
-<td style="text-align:right;">
-0.0241756
-</td>
-<td style="text-align:right;">
-359
-</td>
-<td style="text-align:right;">
-0.4072414
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-98.85
-</td>
-<td style="text-align:right;">
-0.857708
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:right;">
-64380
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ENSG00000184389
-</td>
-<td style="text-align:left;">
-A3GALT2P
-</td>
-<td style="text-align:right;">
-0.0045600
+0.0092650
 </td>
 <td style="text-align:right;">
 354
 </td>
 <td style="text-align:right;">
-0.5292269
+0.2556235
 </td>
 <td style="text-align:right;">
-0.0000007
+0.0000001
 </td>
 <td style="text-align:right;">
-NA
+10.81
 </td>
 <td style="text-align:right;">
-0.987466
+12.610171
 </td>
 <td style="text-align:right;">
-734
+1564
 </td>
 <td style="text-align:right;">
-14332
+8235
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000128274
+ENSG00000000938
 </td>
 <td style="text-align:left;">
-A4GALT
+FGR
 </td>
 <td style="text-align:right;">
-0.0196906
+0.0079872
 </td>
 <td style="text-align:right;">
-511
+207
 </td>
 <td style="text-align:right;">
-0.5593657
+0.4975906
 </td>
 <td style="text-align:right;">
-0.1115987
+0.1771744
 </td>
 <td style="text-align:right;">
-26.40
+11.68
 </td>
 <td style="text-align:right;">
-0.763935
+7.325070
 </td>
 <td style="text-align:right;">
-877
+194
 </td>
 <td style="text-align:right;">
-29177
+7286
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000971
+</td>
+<td style="text-align:left;">
+CFH
+</td>
+<td style="text-align:right;">
+0.0044361
+</td>
+<td style="text-align:right;">
+249
+</td>
+<td style="text-align:right;">
+0.4242650
+</td>
+<td style="text-align:right;">
+0.9996310
+</td>
+<td style="text-align:right;">
+39.03
+</td>
+<td style="text-align:right;">
+9.885834
+</td>
+<td style="text-align:right;">
+477
+</td>
+<td style="text-align:right;">
+6195
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000001036
+</td>
+<td style="text-align:left;">
+FUCA2
+</td>
+<td style="text-align:right;">
+0.0100081
+</td>
+<td style="text-align:right;">
+436
+</td>
+<td style="text-align:right;">
+0.5437246
+</td>
+<td style="text-align:right;">
+0.0003656
+</td>
+<td style="text-align:right;">
+57.48
+</td>
+<td style="text-align:right;">
+5.587449
+</td>
+<td style="text-align:right;">
+186
+</td>
+<td style="text-align:right;">
+1728
 </td>
 </tr>
 </tbody>
@@ -1619,85 +1643,11 @@ A4GALT
 <div id="summary-stats-of-qualifying-snps-per-gene" class="section level4">
 <h4>Summary stats of qualifying SNPs per gene</h4>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-     12     352     445     449     545    1139 </code></pre>
+   12.0   352.0   445.0   448.6   545.0  1139.0 </code></pre>
 <p><br></p>
 </div>
 <div id="distribution-of-qualifying-snps-for-h2-estimate" class="section level4">
 <h4>Distribution of qualifying SNPs for <span class="math inline">\(h^2\)</span> estimate</h4>
-<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/5c7697fd4f138e4c8778d51ab4b4ff2475b1bfda/docs/figure/ldsc_run.Rmd/unnamed-chunk-8-1.png" target="_blank">5c7697f</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-8-1.png" target="_blank">f534edc</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-24
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/91add15fe7824f6b2484f48a9cba3e435aa1827f/docs/figure/ldsc_run.Rmd/unnamed-chunk-8-1.png" target="_blank">91add15</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-18
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/470d29cc8784ed949bfdb9236b92044c59286b59/docs/figure/ldsc_run.Rmd/unnamed-chunk-8-1.png" target="_blank">470d29c</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="h2-distribution" class="section level4">
-<h4><span class="math inline">\(h^2\)</span> distribution</h4>
 <p><img src="figure/ldsc_run.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
@@ -1759,6 +1709,10 @@ daiuc
 </div>
 </div>
 </div>
+<div id="h2-distribution" class="section level4">
+<h4><span class="math inline">\(h^2\)</span> distribution</h4>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 <div id="test-correlation-between-qualifying-snps-and-heritability." class="section level4">
 <h4>Test correlation between qualifying SNPs and heritability.</h4>
 <p>More qualifying SNPs do seem to contribute to higher heribability. However, longer genes do not seem to include more qualifying SNPs.</p>
@@ -1766,20 +1720,20 @@ daiuc
     Pearson&#39;s product-moment correlation
 
 data:  m_tot and h2
-t = 30.84, df = 8934, p-value &lt; 2.2e-16
+t = 30.976, df = 8936, p-value &lt; 2.2e-16
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.2913233 0.3288034
+ 0.2925448 0.3299896
 sample estimates:
       cor 
-0.3101839 </code></pre>
-<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+0.3113881 </code></pre>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div id="fig-unnamed-chunk-12-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1798,7 +1752,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/daiuc/lab3updates/blob/19bfb03b0fa0e1577f7495f497ea0ad9a813ce3c/docs/figure/ldsc_run.Rmd/unnamed-chunk-11-1.png" target="_blank">19bfb03</a>
+<a href="https://github.com/daiuc/lab3updates/blob/19bfb03b0fa0e1577f7495f497ea0ad9a813ce3c/docs/figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" target="_blank">19bfb03</a>
 </td>
 <td>
 daiuc
@@ -1809,18 +1763,18 @@ daiuc
 </tr>
 <tr>
 <td>
-<a href="https://github.com/daiuc/lab3updates/blob/88193d649a43857c87c261c304bbe24bcb59aaac/docs/figure/ldsc_run.Rmd/unnamed-chunk-11-1.png" target="_blank">88193d6</a>
+<a href="https://github.com/daiuc/lab3updates/blob/5c7697fd4f138e4c8778d51ab4b4ff2475b1bfda/docs/figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" target="_blank">5c7697f</a>
 </td>
 <td>
 daiuc
 </td>
 <td>
-2021-08-24
+2021-08-25
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-11-1.png" target="_blank">f534edc</a>
+<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-12-1.png" target="_blank">f534edc</a>
 </td>
 <td>
 daiuc
@@ -1856,142 +1810,13 @@ daiuc
 <p>N_QTL refers to the number of significant cis-eQTLs per gene.</p>
 <div id="distributions-of-other-gene-metrics" class="section level4">
 <h4>Distributions of other gene metrics</h4>
-<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/dcb2524df49dd1431377b84ba70dab2b75e42092/docs/figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" target="_blank">dcb2524</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/6d54ca01aa92f44ea95a829766552ad19ec82e3f/docs/figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" target="_blank">6d54ca0</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/5c7697fd4f138e4c8778d51ab4b4ff2475b1bfda/docs/figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" target="_blank">5c7697f</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-14-1.png" target="_blank">f534edc</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><br></p>
 </div>
 <div id="can-we-observe-correlation-between-h2-and-the-other-metrics" class="section level4">
 <h4>Can we observe correlation between <span class="math inline">\(h^2\)</span> and the other metrics?</h4>
 <p><br></p>
-<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/dcb2524df49dd1431377b84ba70dab2b75e42092/docs/figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" target="_blank">dcb2524</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/1392841f108c62c85f6f4e63e9afe31568a4bb8e/docs/figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" target="_blank">1392841</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-24
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/f534edc5c7bdf8ad1712495f1f7b848df8457172/docs/figure/ldsc_run.Rmd/unnamed-chunk-16-1.png" target="_blank">f534edc</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><br></p>
 </div>
 <div id="demonstrating-correlation-between-h2-and-other-metrics" class="section level4">
@@ -2018,7 +1843,7 @@ EDS
 0.0000000
 </td>
 <td style="text-align:right;">
--0.1648784
+-0.1656608
 </td>
 </tr>
 <tr>
@@ -2026,10 +1851,10 @@ EDS
 pLI
 </td>
 <td style="text-align:right;">
-0.0002439
+0.0002150
 </td>
 <td style="text-align:right;">
--0.0397652
+-0.0401135
 </td>
 </tr>
 <tr>
@@ -2040,7 +1865,7 @@ RVIS
 0.0000000
 </td>
 <td style="text-align:right;">
-0.0801643
+0.0802491
 </td>
 </tr>
 <tr>
@@ -2048,21 +1873,21 @@ RVIS
 length
 </td>
 <td style="text-align:right;">
-0.0000000
+0.0873676
 </td>
 <td style="text-align:right;">
--0.0990698
+-0.0180826
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-max.abs.slope
+max.abs.slope_z
 </td>
 <td style="text-align:right;">
-0.1465348
+0.5699956
 </td>
 <td style="text-align:right;">
-0.0153601
+-0.0060094
 </td>
 </tr>
 <tr>
@@ -2073,50 +1898,13 @@ N_QTLs
 0.0000000
 </td>
 <td style="text-align:right;">
--0.1342328
+-0.1338915
 </td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
-<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
-Past versions of unnamed-chunk-20-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-20-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/daiuc/lab3updates/blob/19bfb03b0fa0e1577f7495f497ea0ad9a813ce3c/docs/figure/ldsc_run.Rmd/unnamed-chunk-20-1.png" target="_blank">19bfb03</a>
-</td>
-<td>
-daiuc
-</td>
-<td>
-2021-08-25
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/ldsc_run.Rmd/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><br></p>
 </div>
 <div id="interprete-result" class="section level4">
@@ -2124,12 +1912,12 @@ daiuc
 <p>I performed correlation test between <span class="math inline">\(h^2\)</span> and all the other metrics. <code>EDS</code>, <code>gene length</code>, and <code>N_eQTLs</code> showed the strongest correlation. All are inversely correlated with <span class="math inline">\(h^2\)</span>.</p>
 <ul>
 <li><p><code>EDS</code> was previously noted to negatively correlate with cis-eQTLs. One explanation is that mammalian genes have evolved a robustness to cope with regulatory genetic variation (Wang et al.). Thus genes with high EDS would be better explained by genomewide variants, rather than cis variants. This perhaps explains why higher EDS genes might have lower cis <span class="math inline">\(h^2\)</span>.</p></li>
-<li>gene length:
+<li><p>gene length:</p>
 <ul>
 <li>possibly because longer genes do not necessarily contributes to more qualifying SNPs, as a result longer genes are penalized for heritability?</li>
 <li>should we restrict to length of CDS only?</li>
 </ul></li>
-<li>N_QTLs: strange that it’s negatively correlated.
+<li><p>N_QTLs: strange that it’s negatively correlated.</p>
 <ul>
 <li>Perhaps due to many more SNPs/eQTLs in the GTEx dataset relative to SNPs used for <span class="math inline">\(h^2\)</span> (eQTLgen x EUR hapmap3)</li>
 <li>eQTLgen only has blood samples, but GTEx more diverse</li>
@@ -2143,51 +1931,51 @@ daiuc
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre><code>R version 3.6.1 (2019-07-05)
+<pre><code>R version 4.1.0 (2021-05-18)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: CentOS Linux 7 (Core)
+Running under: Ubuntu 20.04.2 LTS
 
 Matrix products: default
-BLAS:   /nfs/sw/R/R-3.6.1-fix/lib64/R/lib/libRblas.so
-LAPACK: /nfs/sw/R/R-3.6.1-fix/lib64/R/lib/libRlapack.so
+BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
 
 locale:
  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
-[1] parallel  stats     graphics  grDevices utils     datasets  methods  
-[8] base     
+[1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] cowplot_1.1.1     data.table_1.14.0 forcats_0.5.1     stringr_1.4.0    
- [5] dplyr_1.0.7       purrr_0.3.4       readr_2.0.0       tidyr_1.1.3      
- [9] tibble_3.1.3      ggplot2_3.3.5     tidyverse_1.3.0   workflowr_1.6.2  
+ [1] furrr_0.2.3       future_1.21.0     cowplot_1.1.1     data.table_1.14.0
+ [5] forcats_0.5.1     stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4      
+ [9] readr_2.0.1       tidyr_1.1.3       tibble_3.1.4      ggplot2_3.3.5    
+[13] tidyverse_1.3.1  
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.2        sass_0.4.0        jsonlite_1.7.2    viridisLite_0.4.0
- [5] splines_3.6.1     modelr_0.1.8      bslib_0.2.5.1     assertthat_0.2.1 
- [9] highr_0.9         cellranger_1.1.0  yaml_2.2.1        lattice_0.20-41  
-[13] pillar_1.6.1      backports_1.2.1   glue_1.4.2        digest_0.6.27    
-[17] promises_1.1.0    rvest_1.0.1       colorspace_2.0-2  Matrix_1.2-18    
-[21] htmltools_0.5.1.1 httpuv_1.6.1      pkgconfig_2.0.3   broom_0.7.9      
-[25] haven_2.4.1       scales_1.1.1      webshot_0.5.2     svglite_2.0.0    
-[29] whisker_0.4       later_1.0.0       tzdb_0.1.2        git2r_0.26.1     
-[33] mgcv_1.8-31       generics_0.1.0    farver_2.1.0      ellipsis_0.3.2   
-[37] withr_2.4.2       cli_3.0.1         magrittr_2.0.1    crayon_1.4.1     
-[41] readxl_1.3.1      evaluate_0.14     fs_1.4.1          fansi_0.5.0      
-[45] nlme_3.1-147      xml2_1.3.1        tools_3.6.1       hms_1.1.0        
-[49] lifecycle_1.0.0   munsell_0.5.0     reprex_2.0.0      kableExtra_1.3.4 
-[53] compiler_3.6.1    jquerylib_0.1.4   systemfonts_1.0.2 rlang_0.4.11     
-[57] grid_3.6.1        rstudioapi_0.13   labeling_0.4.2    rmarkdown_2.9    
-[61] gtable_0.3.0      DBI_1.1.0         R6_2.5.0          gridExtra_2.3    
-[65] lubridate_1.7.10  knitr_1.33        utf8_1.1.4        rprojroot_1.3-2  
-[69] stringi_1.4.6     Rcpp_1.0.7        vctrs_0.3.8       dbplyr_2.1.1     
-[73] tidyselect_1.1.1  xfun_0.24        </code></pre>
+ [1] nlme_3.1-152      fs_1.5.0          lubridate_1.7.10  webshot_0.5.2    
+ [5] httr_1.4.2        rprojroot_2.0.2   tools_4.1.0       backports_1.2.1  
+ [9] bslib_0.2.5.1     utf8_1.2.2        R6_2.5.1          DBI_1.1.1        
+[13] mgcv_1.8-36       colorspace_2.0-2  withr_2.4.2       tidyselect_1.1.1 
+[17] gridExtra_2.3     compiler_4.1.0    git2r_0.28.0      cli_3.0.1        
+[21] rvest_1.0.1       xml2_1.3.2        labeling_0.4.2    sass_0.4.0       
+[25] scales_1.1.1      systemfonts_1.0.2 digest_0.6.27     rmarkdown_2.10   
+[29] svglite_2.0.0     pkgconfig_2.0.3   htmltools_0.5.1.1 parallelly_1.27.0
+[33] dbplyr_2.1.1      highr_0.9         rlang_0.4.11      readxl_1.3.1     
+[37] rstudioapi_0.13   jquerylib_0.1.4   generics_0.1.0    farver_2.1.0     
+[41] jsonlite_1.7.2    magrittr_2.0.1    kableExtra_1.3.4  Matrix_1.3-4     
+[45] Rcpp_1.0.7        munsell_0.5.0     fansi_0.5.0       lifecycle_1.0.0  
+[49] stringi_1.7.3     whisker_0.4       yaml_2.2.1        grid_4.1.0       
+[53] parallel_4.1.0    listenv_0.8.0     promises_1.2.0.1  crayon_1.4.1     
+[57] lattice_0.20-44   haven_2.4.3       splines_4.1.0     hms_1.1.0        
+[61] knitr_1.33        pillar_1.6.2      codetools_0.2-18  reprex_2.0.1     
+[65] glue_1.4.2        evaluate_0.14     modelr_0.1.8      vctrs_0.3.8      
+[69] tzdb_0.1.2        httpuv_1.6.1      cellranger_1.1.0  gtable_0.3.0     
+[73] assertthat_0.2.1  xfun_0.25         broom_0.7.9       later_1.2.0      
+[77] viridisLite_0.4.0 workflowr_1.6.2   globals_0.14.0    ellipsis_0.3.2   </code></pre>
 </div>
 </div>
 </div>
@@ -2205,6 +1993,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
